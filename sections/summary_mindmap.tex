@@ -1,0 +1,70 @@
+\clearpage
+\section{Summary}
+
+\begin{figure}[p]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[
+    mindmap,
+    grow cyclic,
+    every node/.style=concept,
+    concept color=blue!40,
+    level 1/.append style={level distance=5cm,sibling angle=90},
+    level 2/.append style={level distance=3cm,sibling angle=45},
+]
+
+% Central concept
+\node[concept,font=\Large\bfseries] {Reasoning \& Planning}
+    % Decision Making branch
+    child[concept color=green!50] {
+        node[concept] {Decision Making}
+        child {node[concept] {Elements}}
+        child {node[concept] {Decision Classification}}
+        child {node[concept] {Problem Classification}}
+    }
+    % Problem Solving branch
+    child[concept color=orange!50] {
+        node[concept] {Problem Solving}
+        child {node[concept] {Understand}}
+        child {node[concept] {Create Strategy}}
+        child {node[concept] {Solve}}
+    }
+    % Intelligent Agents branch
+    child[concept color=purple!50] {
+        node[concept] {Intelligent Agents}
+        child {node[concept] {Autonomy}}
+        child {node[concept] {Rationality}}
+        child {node[concept] {Feel-Think-Act}}
+    }
+    % Agent Architectures branch
+    child[concept color=red!50] {
+        node[concept] {Agent Architectures}
+        child {node[concept] {Deliberative}}
+        child {node[concept] {Reactive}}
+        child {node[concept] {Hybrid}}
+        child {node[concept] {Cognitive}}
+    };
+
+\end{tikzpicture}
+}
+\caption{High-level overview of the Reasoning and Planning course structure}
+\end{figure}
+
+\subsection*{Key Concepts Summary}
+
+\begin{itemize}
+    \item \textbf{Decision Making}: Understanding decision complexity, elements involved (future effect, reversibility, impact, quality, periodicity), and classification of decisions and problems.
+    
+    \item \textbf{Problem Solving Stages}: Three-stage approach: (1) Understand the problem's complexity through identification and explanation techniques, (2) Create a strategy by defining, choosing, and designing, (3) Solve by implementing, evaluating, and refining.
+    
+    \item \textbf{Intelligent Agents}: Autonomous and rational entities that perceive their environment through sensors (Feel), reason and decide using deliberative processes (Think), and execute actions through actuators (Act).
+    
+    \item \textbf{Agent Architectures}:
+    \begin{itemize}
+        \item \textit{Deliberative}: Maintain internal world models and perform explicit reasoning (e.g., Planning agents, BDI)
+        \item \textit{Reactive}: Direct stimulus-response without world models (e.g., Subsumption, Agent networks)
+        \item \textit{Hybrid}: Combine deliberative and reactive approaches (e.g., PRS, COSY)
+        \item \textit{Cognitive}: Model human cognitive processes with memory systems (e.g., ACT-R, SOAR)
+    \end{itemize}
+\end{itemize}
+

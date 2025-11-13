@@ -1,0 +1,49 @@
+\subsection{Cognitive Architecture}
+
+A \textbf{cognitive architecture} is a computational framework that models the structure and processes of human cognition. It provides a unified theory of how the mind works, including perception, memory, reasoning, learning, and decision-making. Cognitive architectures can be defined as a hypothesis about the fixed structures that provide a mind, whether in natural or artificial systems, and how they work together—along with the knowledge and skills incorporated within the architecture—to produce intelligent behavior in a diversity of complex environments. Cognitive architectures aim to create artificial agents that can exhibit human-like intelligence and behavior.
+
+\textbf{Key characteristics:}
+\begin{itemize}
+    \item Models human cognitive processes and structures
+    \item Provides unified framework for multiple cognitive functions
+    \item Includes memory systems (short-term and long-term)
+    \item Supports learning and adaptation
+    \item Integrates perception, reasoning, and action
+    \item Based on cognitive science and psychology principles
+\end{itemize}
+
+\subsubsection{Examples of Cognitive Architectures}
+
+\begin{itemize}
+    \item \textbf{ACT-R}: A cognitive architecture developed primarily by John Robert Anderson at Carnegie Mellon University. The most important assumption of ACT-R is that human knowledge can be divided into two irreducible types of representations:
+    \begin{itemize}
+        \item \textbf{Declarative knowledge}: Represented as \textbf{chunks} (vector representations of individual properties, each accessible from a labeled slot)
+        \item \textbf{Procedural knowledge}: Represented as production rules
+    \end{itemize}
+    Chunks are maintained and accessed through \textbf{buffers}, which are the front-end of \textbf{modules} (specialized and largely independent brain structures). ACT-R has two main types of modules:
+    \begin{itemize}
+        \item \textbf{Perceptual-motor module}: Handles interaction with the environment, managing the flow of perception and action necessary to connect the agent with the world
+        \item \textbf{Memory module}: Divided into:
+        \begin{itemize}
+            \item \textbf{Long-term memory} (production memory): Contains production rules
+            \item \textbf{Short-term memory} (working memory or declarative memory): Contains current facts about the world
+        \end{itemize}
+    \end{itemize}
+     
+    \item \textbf{SOAR}: A cognitive architecture created at Carnegie Mellon University by Laird, Newell, and Rosenbloom (1987). The ultimate goal of SOAR is to provide a foundation for a system capable of general intelligent behavior, supporting the full range of cognitive tasks, problem-solving methods, and knowledge representations. SOAR is both a theory of cognition and a computational implementation of that theory.
+    
+    The design of SOAR is based on the hypothesis that all goal-oriented deliberate behavior can be understood as the selection and application of \textbf{operators} to a \textbf{state}:
+    \begin{itemize}
+        \item \textbf{State}: A representation of the current problem situation
+        \item \textbf{Operator}: Transforms a state (performs changes in the representation)
+        \item \textbf{Goal}: A desired result for the problem
+    \end{itemize}
+    SOAR runs continuously, attempting to apply the current operator and select the next operator (a state can have only one operator at a time) until the goal is achieved.
+    
+    SOAR has separate memories with different representation modes:
+    \begin{itemize}
+        \item \textbf{Short-term memory}: Stores sensor data, intermediate inferences about current data, currently active goals, and active operators (actions and plans)
+        \item \textbf{Long-term memory} (production memory): Maintains knowledge for responding to situations through procedures. It stores problem-solving knowledge, inference rules, and knowledge for selecting and applying operators in specific states
+    \end{itemize}
+\end{itemize}
+

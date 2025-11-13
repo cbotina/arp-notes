@@ -1,0 +1,41 @@
+\subsection{Hybrid Architecture}
+
+A \textbf{hybrid architecture} combines elements of both deliberative and reactive architectures. It typically has multiple layers: a reactive layer for fast, immediate responses to critical situations, and a deliberative layer for complex planning and reasoning. This architecture attempts to get the best of both worlds: the speed of reactive systems and the intelligence of deliberative systems.
+
+\textbf{Key characteristics:}
+\begin{itemize}
+    \item Combines reactive and deliberative components
+    \item Multiple layers of control (reactive at the bottom, deliberative at the top)
+    \item Fast response for urgent situations (reactive layer)
+    \item Complex reasoning and planning for strategic decisions (deliberative layer)
+    \item Coordination between layers
+\end{itemize}
+
+\textit{Example}: Consider an autonomous vehicle with a hybrid architecture. The vehicle has two main layers:
+
+\begin{itemize}
+    \item \textbf{Reactive layer}: Handles immediate, critical situations. For example:
+    \begin{itemize}
+        \item If a pedestrian suddenly appears in front, immediately apply brakes (no time for planning)
+        \item If another vehicle swerves into the lane, quickly adjust steering
+    \end{itemize}
+    
+    \item \textbf{Deliberative layer}: Handles strategic planning and navigation. For example:
+    \begin{itemize}
+        \item Plans the route from origin to destination
+        \item Analyzes traffic conditions and selects the best path
+        \item Decides when to change lanes based on traffic patterns
+        \item Maintains a map and tracks the vehicle's position
+    \end{itemize}
+\end{itemize}
+
+The reactive layer ensures safety by responding instantly to immediate threats, while the deliberative layer handles the overall navigation strategy. The layers work together: the deliberative layer sets the general plan, and the reactive layer handles unexpected situations that require immediate action.
+
+\subsubsection{Examples of Hybrid Architectures}
+
+\begin{itemize}
+    \item \textbf{Procedural Reasoning System (PRS)}: A BDI (Belief-Desire-Intention) architecture that combines deliberative reasoning with reactive capabilities. The agent maintains \textbf{Beliefs} (facts about the world expressed in first-order logic), \textbf{Desires} (system behaviors or goals), and \textbf{Intentions} (the current set of active plans). PRS includes a library of partially specified plans called Knowledge Areas (KAs), each with an activation condition. KAs can be activated by goals or by data, and can be reactive, allowing PRS to respond quickly to environmental changes while also reasoning about which plans to execute.
+    
+    \item \textbf{COSY (Cooperative System)}: A BDI architecture that combines elements from both PRS and IRMA architectures. It has five main components: \textbf{Sensors} (receive perceptual inputs), \textbf{Actuators} (perform actions), \textbf{Communications} (send messages), \textbf{Cognition} (mediates between intentions and knowledge to choose actions), and \textbf{Intention} (contains long-term goals and control elements). COSY combines deliberative reasoning with reactive communication and action capabilities, making it suitable for interactive and collaborative environments.
+\end{itemize}
+

@@ -1,0 +1,97 @@
+\subsection{Deliberative Architecture}
+
+A \textbf{deliberative architecture} (also known as a \textit{symbolic} or \textit{thinking} architecture) is characterized by the agent's ability to maintain an internal model of the world and engage in explicit reasoning and planning before taking action. The agent uses symbolic representations of knowledge and performs logical reasoning to determine the best course of action.
+
+\textbf{Key characteristics:}
+\begin{itemize}
+    \item Maintains an internal model or representation of the world
+    \item Uses symbolic knowledge representation
+    \item Performs explicit reasoning and planning
+    \item Makes decisions based on logical inference
+    \item Typically slower to respond but more thoughtful
+\end{itemize}
+
+
+This process involves explicit reasoning and planning, making it a deliberative approach. The agent "thinks before it acts," considering multiple possibilities and their outcomes.
+
+Figure~\ref{fig:deliberative_architecture} illustrates the classic deliberative agent architecture, which follows a Sense-Plan-Act cycle. The architecture consists of three main internal components:
+
+\begin{itemize}
+    \item \textbf{Deliberative Planner}: Generates high-level plans based on goals and current state information. It receives failure signals from the monitoring component and creates or refines plans accordingly.
+    \item \textbf{Monitoring}: Monitors the execution of the plan, compares the current state with the expected state, and sends failure signals to the planner if deviations occur. It receives plans from the planner and sends specific actions to the execution component.
+    \item \textbf{Execution}: Interacts directly with the environment through sensors and actuators. It receives sensor data from the environment, updates the monitoring component with the current state, receives action commands from monitoring, and executes actions in the environment.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        box/.style={rectangle, draw=black, thick, minimum width=3cm, minimum height=1cm, align=center},
+        env/.style={cloud, draw=gray!50, fill=gray!20, minimum width=4cm, minimum height=2cm, cloud puffs=10, cloud puff arc=120},
+        arrow/.style={->, >=stealth, dashed, thick},
+        label/.style={font=\small}
+    ]
+    
+    % Agent components (enclosed in dashed box)
+    \begin{scope}[local bounding box=agent]
+        % Deliberative Planner
+        \node[box] (planner) at (0,2) {Deliberative Planner};
+        
+        % Monitoring
+        \node[box] (monitoring) at (0,0) {Monitoring};
+        
+        % Execution
+        \node[box] (execution) at (0,-2) {Execution};
+    \end{scope}
+    
+    % Draw dashed box around agent (ending above environment)
+    \draw[dashed, gray, thick] ([shift={(-2cm,1cm)}]agent.north west) rectangle ([shift={(2cm,-0.5cm)}]agent.south east);
+    \node[above] at ([shift={(0,1cm)}]agent.north) {\textbf{Agent}};
+    
+    % Environment (outside agent boundaries)
+    \node[env] (env) at (0,-6.5) {Environment};
+    
+    % Arrows
+    % Environment to Execution (sensor) - UP arrow, goes on the right
+    \draw[arrow] ([xshift=5pt]env.north) -- node[right, label] {1. sensor} ([xshift=5pt]execution.south);
+    
+    % Execution to Environment (act) - DOWN arrow, goes on the left
+    \draw[arrow] ([xshift=-5pt]execution.south) -- node[left, label] {3. act} ([xshift=-5pt]env.north);
+    
+    % Execution to Monitoring (state)
+    \draw[arrow] ([xshift=5pt]execution.north) -- node[right, label] {state} ([xshift=5pt]monitoring.south);
+    
+    % Monitoring to Execution (action)
+    \draw[arrow] ([xshift=-5pt]monitoring.south) -- node[left, label] {action} ([xshift=-5pt]execution.north);
+    
+    % Monitoring to Deliberative Planner (failure)
+    \draw[arrow] ([xshift=5pt]monitoring.north) -- node[right, label] {failure} ([xshift=5pt]planner.south);
+    
+    % Deliberative Planner to Monitoring (plan)
+    \draw[arrow] ([xshift=-5pt]planner.south) -- node[left, label] {plan} ([xshift=-5pt]monitoring.north);
+    
+    \end{tikzpicture}
+    \caption{Classic deliberative agent architecture (Sense-Plan-Act cycle)}
+    \label{fig:deliberative_architecture}
+    \end{figure}
+    
+
+The flow operates as a continuous cycle:
+\begin{enumerate}
+    \item The agent \textbf{senses} the environment through sensors (1. sensor), providing raw data to the Execution component.
+    \item Execution updates Monitoring with the current \textbf{state}.
+    \item Monitoring compares the state with the \textbf{plan} received from the Deliberative Planner and determines the next \textbf{action} for Execution. If the plan is not progressing as expected, Monitoring sends a \textbf{failure} signal to the Deliberative Planner.
+    \item The Deliberative Planner receives failure signals and generates or refines a \textbf{plan}, which is sent to Monitoring.
+    \item Execution \textbf{acts} (3. act) upon the environment based on the action received from Monitoring.
+\end{enumerate}
+
+This cycle represents how a deliberative agent continuously perceives, plans, and acts to achieve its goals, with a mechanism for detecting and responding to plan failures.
+
+\subsubsection{Examples of Deliberative Architectures}
+
+\begin{itemize}
+    \item \textbf{Planning agents}: These agents use automated planning algorithms to generate sequences of actions that achieve specific goals. They maintain a symbolic representation of the world state and use search algorithms to find optimal or near-optimal plans. Planning agents are commonly used in robotics, autonomous systems, and game AI where complex sequences of actions need to be coordinated.
+
+    \item \textbf{Belief Desire \& Intention (BDI)}: This architecture models agents based on three mental attitudes: \textbf{Beliefs} (what the agent knows about the world), \textbf{Desires} (the agent's goals or objectives), and \textbf{Intentions} (the commitments to specific plans of action). BDI agents reason about their beliefs, select desires to pursue, and commit to intentions (plans) to achieve those desires. This architecture is particularly useful for modeling complex, goal-oriented behavior in multi-agent systems and autonomous agents.
+    
+\end{itemize}
+
