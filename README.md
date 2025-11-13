@@ -1,4 +1,4 @@
-# LaTeX Project - Artificial Vision
+# ARP Notes
 
 This project is used to study, summarize, and explain concepts for subjects of the Master's Degree in Artificial Intelligence. It serves as a comprehensive reference material that complements course sessions with detailed explanations, visualizations, and additional resources. It contains a LaTeX document project with Python notebooks for generating figures and visualizations.
 
