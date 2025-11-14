@@ -1,0 +1,54 @@
+\section{Summary - Lecture 002}
+\begin{figure}[H]
+\centering
+\resizebox{1\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance=1.5cm and 2cm,
+    box/.style={rectangle, draw, fill=blue!10, text width=4.2cm, align=center, minimum height=1cm, font=\small},
+    titlebox/.style={rectangle, draw, fill=blue!30, text width=5cm, align=center, minimum height=1.2cm, font=\bfseries},
+    smallbox/.style={rectangle, draw, fill=green!10, text width=3.2cm, align=left, minimum height=0.8cm, font=\scriptsize},
+    arrow/.style={->, >=stealth, thick}
+]
+
+% Main title
+\node[titlebox] (main) at (0,0) {\Large Reasoning \& Knowledge\\Representation};
+
+% Symbolic Representation section
+\node[box, fill=green!20, below left=of main, xshift=-4cm] (sr) {\hyperref[sec:symbolic-representation]{\textbf{Symbolic Representation}}\\Internal models of external world};
+\node[smallbox, below=0.8cm of sr, xshift=-2.2cm] (sr-req) {\hyperref[subsec:requirements-representation]{\textbf{Requirements:}} Formal, Expressive,\\Natural, Tractable};
+\node[smallbox, below=0.8cm of sr, xshift=2.2cm] (sr-types) {\hyperref[subsec:types-knowledge]{\textbf{Types:}} Domain, Explicit, Implicit,\\Superficial, Deep,\\Control, Meta};
+\node[smallbox, below=0.8cm of sr-req, yshift=-0.5cm, xshift=2.2cm] (sr-multi) {\hyperref[sec:symbolic-representation]{\textbf{Multi-layer:}} Specialized agents\\per level};
+
+% Introduction to Reasoning section
+\node[box, fill=orange!20, below right=of main, xshift=4cm] (ir) {\hyperref[sec:introduction-reasoning]{\textbf{Introduction to Reasoning}}\\Mental activities connecting ideas};
+\node[smallbox, below=0.8cm of ir, xshift=-2.2cm] (ir-elem) {\hyperref[subsec:content-form]{\textbf{Elements:}} Content (truth/falsity)\\Form (validity)};
+\node[smallbox, below=0.8cm of ir, xshift=2.2cm] (ir-valid) {\hyperref[sec:introduction-reasoning]{\textbf{Validity:}} Premises + Conclusion\\True→False = Invalid};
+
+% Reasoning Classification section
+\node[box, fill=purple!20, below=5.5cm of main] (rc) {\hyperref[sec:reasoning-classification]{\textbf{Reasoning Classification}}\\Main types for AI};
+
+\node[smallbox, below=0.8cm of rc, xshift=-6.2cm] (ded) {\hyperref[subsec:deductive-reasoning]{\textbf{Deductive:}} General → Particular\\Necessary conclusion\\Rigorous};
+\node[smallbox, below=0.8cm of rc, xshift=0cm] (ind) {\hyperref[subsec:inductive-reasoning]{\textbf{Inductive:}} Particular → General\\Probable conclusion\\Complete/Incomplete};
+\node[smallbox, below=0.8cm of rc, xshift=6.2cm] (abd) {\hyperref[subsec:abductive-reasoning]{\textbf{Abductive:}} Effect → Cause\\Hypothesis generation\\Innovation};
+
+% Arrows
+\draw[arrow] (main) -- (sr);
+\draw[arrow] (main) -- (ir);
+\draw[arrow] (main) -- (rc);
+
+\draw[arrow] (sr) -- (sr-req);
+\draw[arrow] (sr) -- (sr-types);
+\draw[arrow] (sr) -- (sr-multi);
+
+\draw[arrow] (ir) -- (ir-elem);
+\draw[arrow] (ir) -- (ir-valid);
+
+\draw[arrow] (rc) -- (ded);
+\draw[arrow] (rc) -- (ind);
+\draw[arrow] (rc) -- (abd);
+
+\end{tikzpicture}
+}
+\caption{Conceptual map of the Reasoning and Planning course - Lecture 002}
+\end{figure}
+

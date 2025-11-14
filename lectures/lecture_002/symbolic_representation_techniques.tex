@@ -1,0 +1,76 @@
+\section{Symbolic Representation of Knowledge}
+\label{sec:symbolic-representation}
+
+When agents make decisions based on changes in the environment, a fundamental question arises: \textbf{how do we represent the environment and the problem's information?} Agents need a way to understand and work with information about the world, which is where symbolic representation becomes essential.
+
+Reasoning is an internal process that operates on external entities. The key insight is that \textbf{operations with representations substitute operations with the real world}. Instead of directly interacting with the environment, agents can manipulate symbolic representations of it, allowing them to reason about possible actions and outcomes before actually taking action.
+
+Symbolic representation allows agents to create \textbf{internal models of the external world using symbols} (such as variables, predicates, logical formulas, or other formal structures). These representations enable reasoning processes that can:
+\begin{itemize}
+    \item \textbf{Simulate} different scenarios and outcomes
+    \item \textbf{Predict} the consequences of actions
+    \item \textbf{Plan} sequences of actions before execution
+    \item \textbf{Learn} from experience without direct interaction
+\end{itemize}
+
+This makes decision-making more efficient and safer, as agents can explore possibilities and evaluate strategies in a controlled, internal environment before committing to actions in the real world. It is important to note that reasoning and action are \textbf{complementary} rather than substitutes: reasoning often precedes and guides action, enabling agents to make informed decisions rather than acting randomly.
+
+\subsection{Requirements for Knowledge Representation}
+\label{subsec:requirements-representation}
+
+According to \citep{upm14207} a knowledge representation must satisfy:
+
+\begin{enumerate}
+    \item \textbf{Formal}: The representation must be unambiguous. Natural language is not considered a knowledge representation because of its ambiguities.
+    
+    \textit{Example}: The sentence "I saw the man with binoculars" is ambiguous—it could mean "I used binoculars to see the man" or "I saw the man who had binoculars." A formal representation would explicitly distinguish these meanings, such as \texttt{Saw(I, man) $\land$ Used(I, binoculars)} versus \texttt{Saw(I, man) $\land$ Has(man, binoculars)}.
+    
+    \item \textbf{Expressive}: The representation must be rich enough to capture the different aspects that need to be distinguished. For example, first-order predicate logic formulas are more expressive than propositional calculus.
+    
+    \textit{Example}: Propositional logic can only express simple statements like "It is raining" (P) or "The ground is wet" (Q). Predicate logic can express relationships and quantification, such as \texttt{$\forall$x (Bird(x) $\rightarrow$ CanFly(x))} meaning "All birds can fly," or \texttt{Loves(john, mary)} expressing the relationship "John loves Mary."
+    
+    \item \textbf{Natural}: The representation should be sufficiently analogous to natural ways of expressing knowledge. Traditional quantitative mathematical representations (e.g., matrices) can be too artificial for emulating reasoning processes.
+    
+    \textit{Example}: Representing "John loves Mary" as a matrix entry (row 1, column 2 = 1) is mathematically precise but doesn't match how humans naturally think about relationships. A more natural representation would be a semantic network with nodes and edges: \texttt{[John] --loves--> [Mary]}, or a frame structure with properties, which aligns better with human cognitive patterns.
+    
+    \item \textbf{Tractable}: The representation must be computationally tractable, meaning there must exist sufficiently efficient procedures to generate answers through manipulation of the knowledge base elements.
+    
+    \textit{Example}: While a representation might be perfectly formal and expressive, if answering queries requires exponential time or is undecidable, it becomes impractical. For instance, certain logical formalisms may be too complex to reason about efficiently, making them unsuitable for real-time applications despite their theoretical expressiveness.
+\end{enumerate}
+
+It is important to note that "natural" in this context refers to \textbf{cognitive naturalness}—how well the representation aligns with human thinking patterns—not to natural language. Natural language is ambiguous and therefore not formal, while we seek representations that are both formal (unambiguous) and natural (intuitive). The ideal representation balances both requirements.
+
+In general, it is convenient to create information representations based on a \textbf{single representation}. This approach improves knowledge base maintenance, as it provides consistency and simplifies updates across the system.
+
+\textit{Example}: A system might use only first-order predicate logic to represent all knowledge:
+\begin{itemize}
+    \item Facts: \texttt{Student(john)}, \texttt{Course(cs101)}, \texttt{Enrolled(john, cs101)}
+    \item Rules: \texttt{$\forall$x (Student(x) $\land$ Enrolled(x, y) $\rightarrow$ TakesCourse(x, y))}
+    \item Relationships: \texttt{Teaches(profSmith, cs101)}, \texttt{Prerequisite(cs101, cs201)}
+\end{itemize}
+Alternatively, a system might use only semantic networks, representing everything as nodes and edges: \texttt{[John] --is\_a--> [Student]}, \texttt{[John] --enrolled\_in--> [CS101]}, etc.
+
+However, in some cases, attempting to represent all knowledge in a single representation can \textbf{limit the application of techniques and algorithms}. Different problems and subtasks may require different representation formalisms or specialized techniques that are not well-suited to a unified representation.
+
+For complex systems that require making decisions at different levels, it is common to employ the idea of generating \textbf{multi-layer agents} \citep{upm14207} that decompose the problem into levels. For each level, a treatment is established oriented to a specialized agent that needs a \textbf{concrete representation of part of the environment information}. Each agent at its respective layer uses a representation tailored to its specific needs and the techniques it employs.
+
+\subsection{Types of Knowledge}
+\label{subsec:types-knowledge}
+
+To solve problems in a natural way, it is necessary to carry out a precise analysis of knowledge. For this, we must take into account the different classifications of knowledge used in artificial intelligence \citep{upm14207}. The main types of knowledge are:
+
+\begin{enumerate}
+    \item \textbf{Domain Knowledge}: Knowledge about a specific context or problem, represented in a \textbf{declarative} way (describes what exists, properties, and constraints). It can be incomplete and does not require order or relationships between elements.
+    
+    \item \textbf{Explicit Knowledge}: \textbf{Knowledge extracted from introspective analysis of one's own reasoning and problem-solving processes}. It is usually expressed through frames or rules about how problems are solved.
+    
+    \item \textbf{Implicit Knowledge}: Knowledge about innate capacities or abilities that are not easily expressed verbally. Bayesian networks or neural networks are used for its representation or modeling.
+    
+    \item \textbf{Superficial Knowledge}: Knowledge obtained through experience in solving similar problems. It uses practical rules or heuristics that work but don't explain the underlying theoretical principles.
+    
+    \item \textbf{Deep Knowledge}: Knowledge based on a well-structured theoretical framework that explains the underlying principles and mechanisms in detail. However, it is not present in many problems because it is not easy to have a theoretical analysis of the environment's functioning in all problems.
+    
+    \item \textbf{Control Knowledge}: The \textbf{strategy/organization for the problem-solving process} — the execution order and approach for how to solve the problem, not just the steps of the task itself. In many cases, it can lead to coding a program in the expansion sequence of search algorithms.
+    
+    \item \textbf{Metaknowledge}: \textbf{Knowledge about how to generate, transfer, and learn from knowledge}. It allows generating new models from previous problem models and establishes relationships between levels of knowledge bases.
+\end{enumerate}

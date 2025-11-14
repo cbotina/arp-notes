@@ -1,0 +1,221 @@
+\section{Reasoning Classification}
+\label{sec:reasoning-classification}
+
+Although there are many types of reasoning, we will focus on the most important ones for artificial intelligence: \textbf{deductive}, \textbf{inductive}, and \textbf{abductive} reasoning.
+
+\subsection{Deductive Reasoning}
+\label{subsec:deductive-reasoning}
+
+Reasoning is \textbf{deductive} when it requires that the conclusion necessarily and forcibly derives from the premises. For this reason, it is considered rigorous.
+
+\textit{Example of deductive reasoning}:
+\begin{itemize}
+    \item "If it snows, then it is cold"
+    \item "It is snowing"
+    \item "Therefore, I am cold"
+\end{itemize}
+
+It is understood that validity exists when, from true premises, a false conclusion cannot be obtained. From false premises, true conclusions can be derived, and yet the argument can still be valid.
+
+\textbf{Truth} occurs when what is described in the premises corresponds to reality. This type of reasoning goes from \textbf{general to particular}.
+
+\subsubsection{Types of Deductive Reasoning}
+\label{subsubsec:types-deductive}
+
+Within deductive reasoning, several types are distinguished:
+
+\begin{itemize}
+    \item \textbf{Categorical deductive reasoning}: Starts from two true premises that will lead to a true conclusion.
+    
+    \textit{Example}:
+    \begin{itemize}
+        \item Premise 1: "All humans are mortal" (True)
+        \item Premise 2: "Socrates is a human" (True)
+        \item Conclusion: "Therefore, Socrates is mortal" (True)
+    \end{itemize}
+    
+    \item \textbf{Propositional deductive reasoning}: Relates two premises where one is a condition of the other, antecedent and consequent.
+    
+    \textit{Example}:
+    \begin{itemize}
+        \item Premise 1: "If it rains, then the ground gets wet" (antecedent: it rains, consequent: ground gets wet)
+        \item Premise 2: "It is raining" (antecedent is true)
+        \item Conclusion: "Therefore, the ground is wet" (consequent follows)
+    \end{itemize}
+    
+    \item \textbf{Disjunction or dilemma}: The relationship between the premises is one of contraries, therefore the conclusion discards one of them.
+    
+    \textit{Example}:
+    \begin{itemize}
+        \item Premise 1: "Either it is day or it is night"
+        \item Premise 2: "It is not day"
+        \item Conclusion: "Therefore, it is night" (discards the first option)
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Forms of Deductive Reasoning}
+\label{subsubsec:forms-deductive}
+
+There are two forms of deductive reasoning:
+
+\begin{itemize}
+    \item \textbf{Immediate}: The only logical operation is the change of judgment.
+    
+    \textit{Example}:
+    \begin{itemize}
+        \item Original judgment: "All students are learners"
+        \item Immediate conclusion: "No students are non-learners" (direct conversion/transformation of the same judgment)
+    \end{itemize}
+    In immediate reasoning, the conclusion is obtained directly from a single premise by changing its form, without needing additional premises.
+    
+    \item \textbf{Mediate}: A mediation relationship is established between judgments to reach the conclusion.
+    
+    \textit{Example}:
+    \begin{itemize}
+        \item Premise 1: "All mammals are warm-blooded"
+        \item Premise 2: "All dogs are mammals" (middle term: "mammals")
+        \item Conclusion: "Therefore, all dogs are warm-blooded"
+    \end{itemize}
+    In mediate reasoning, the conclusion is reached by connecting two premises through a middle term (in this case, "mammals"), which mediates the relationship between the other terms.
+\end{itemize}
+
+The deductive method goes from \textbf{general to particular}. Table~\ref{tab:syllogism-example} illustrates a classic syllogism example:
+
+\begin{table}[H]
+\centering
+\caption{Example of a syllogism}
+\label{tab:syllogism-example}
+\begin{tabular}{p{3cm}p{3cm}p{5cm}}
+\toprule
+\textbf{Part} & \textbf{Abbreviation} & \textbf{Statement} \\
+\midrule
+Major Premise & MP & Humans are mortal. \\
+\midrule
+Minor Premise & SM & Greeks are humans. \\
+\midrule
+Conclusion & SP & Greeks are mortal. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In syllogistic logic, the abbreviations follow a standard terminology:
+\begin{itemize}
+    \item \textbf{S (Subject)}: The subject of the conclusion ("Greeks")
+    \item \textbf{P (Predicate)}: The predicate of the conclusion ("mortal")
+    \item \textbf{M (Middle)}: The term that appears in both premises but not in the conclusion ("humans")
+\end{itemize}
+
+In this syllogism:
+\begin{itemize}
+    \item \textbf{Major Premise (MP)}: Contains the Major Term (P = "mortal") and Middle Term (M = "humans")
+    \item \textbf{Minor Premise (SM)}: Contains the Minor Term (S = "Greeks") and Middle Term (M = "humans")
+    \item \textbf{Conclusion (SP)}: Contains the Minor Term (S = "Greeks") and Major Term (P = "mortal")
+\end{itemize}
+
+The conclusion is labeled \textbf{SP} because it contains the Subject (S) and Predicate (P) terms. The middle term (M = "humans") connects the premises but does not appear in the conclusion.
+
+\subsection{Inductive Reasoning}
+\label{subsec:inductive-reasoning}
+
+\textbf{Inductive reasoning} creates probable conclusions according to the given premises. It is based on the idea that if various events present the same situation as their premises, there is a probability that the result will be identical. To induce means precisely to extract general conclusions from particular experiences.
+
+The difference with deductive reasoning is that the conclusion is \textbf{not necessarily obtained} from the premises. The conclusion of inductive reasoning is obtained through the direct observation of particular cases.
+
+\subsubsection{Types of Inductive Reasoning}
+\label{subsubsec:types-inductive}
+
+Within inductive reasoning, there are different types:
+
+\begin{itemize}
+    \item \textbf{Complete inductive reasoning} (also called perfect inductive reasoning): Occurs when all particular cases are included in the premises.
+    
+    \textit{Example}:
+    \begin{itemize}
+        \item Observation: "Student 1 passed the exam"
+        \item Observation: "Student 2 passed the exam"
+        \item Observation: "Student 3 passed the exam"
+        \item Observation: "Student 4 passed the exam"
+        \item Observation: "Student 5 passed the exam"
+        \item (These are all the students in the class)
+        \item Conclusion: "Therefore, all students in the class passed the exam"
+    \end{itemize}
+    Since all particular cases (all students) have been observed, this is complete inductive reasoning.
+    
+    \item \textbf{Incomplete inductive reasoning} or imperfect inductive reasoning: Only certain particular cases are included in the premises.
+    
+    \textit{Example}:
+    \begin{itemize}
+        \item Observation: "The swan I saw in the park is white"
+        \item Observation: "The swan I saw at the lake is white"
+        \item Observation: "The swan I saw in the zoo is white"
+        \item Observation: "The swan I saw in the river is white"
+        \item (These are only some of all the swans that exist)
+        \item Conclusion: "Therefore, all swans are white"
+    \end{itemize}
+    Since only some particular cases (some swans) have been observed, this is incomplete inductive reasoning. The conclusion is probable but not certain, as there might be swans that haven't been observed (e.g., black swans in Australia).
+\end{itemize}
+
+The inductive method goes from \textbf{particular to general}. Table~\ref{tab:inductive-example} illustrates how inductive reasoning works, showing the reverse direction compared to deductive reasoning:
+
+\begin{table}[H]
+\centering
+\caption{Example of inductive reasoning}
+\label{tab:inductive-example}
+\begin{tabular}{p{4cm}p{3cm}p{5cm}}
+\toprule
+\textbf{Part} & \textbf{Abbreviation} & \textbf{Statement} \\
+\midrule
+Minor Premise & SM & Greeks are human beings. \\
+\midrule
+Conclusion & SP & Greeks are mortal. \\
+\midrule
+Major Premise & MP & Human beings are mortal. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In inductive reasoning, we start by observing particular cases (Greeks are humans, Greeks are mortal) and then infer the general rule (Human beings are mortal). This is the opposite direction of deductive reasoning, which starts with the general rule and applies it to particular cases.
+
+\subsection{Abductive Reasoning}
+\label{subsec:abductive-reasoning}
+
+\textbf{Abductive reasoning} (also called retroduction) is a method used to find explanations for observed facts. From a fact, we arrive at the actions that caused it. Aristotle was the first to describe this type of reasoning.
+
+\textbf{Key characteristics:}
+\begin{itemize}
+    \item Starts from \textbf{facts} and seeks a \textbf{theory} (from effect to cause)
+    \item The key concept is the \textbf{syllogism}, where:
+    \begin{itemize}
+        \item Major premise is considered \textbf{certain}
+        \item Minor premise is considered \textbf{probable}
+        \item Conclusion has the same level of \textbf{probability} as the minor premise
+    \end{itemize}
+    
+    \textit{Example}:
+    \begin{itemize}
+        \item Major Premise (certain): "If it rains, then the ground gets wet"
+        \item Minor Premise (probable): "The ground is wet" (observed fact)
+        \item Conclusion (probable): "Therefore, it probably rained" (inferred cause from the effect)
+    \end{itemize}
+    \item Relates the observable with something that cannot be directly observed
+    \item For Charles S. Peirce (Peirce, 1867), it is an inferential process related to the \textbf{generation of hypotheses}
+\end{itemize}
+
+\textbf{Abductive reasoning process} (three steps):
+\begin{enumerate}
+    \item The object or fact (observation)
+    \item Hypothesis of why the object or fact occurs
+    \item Affirm that the cause was responsible for the object or fact
+\end{enumerate}
+
+\textbf{Scheme:} "I see A with characteristic Z. Since all A I see are Z, then any element A has characteristic Z."
+
+\textbf{Importance:}
+\begin{itemize}
+    \item Allows thinking in an \textbf{alternative way}, without following usual reasoning paths
+    \item Leads to \textbf{disruptive and novel solutions}
+    \item Contrary to deductive reasoning, which keeps us in the comfort zone
+    \item \textbf{Innovation} is strongly linked to abductive reasoning
+    \item Enriches processes in the testing phase, providing a perspective of change
+\end{itemize}
+

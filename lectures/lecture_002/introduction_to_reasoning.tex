@@ -1,0 +1,121 @@
+\section{Introduction to Reasoning}
+\label{sec:introduction-reasoning}
+
+Reasoning refers to a set of mental activities that connect ideas based on rules that justify an idea, allowing problem-solving through conclusions.
+
+
+
+As can be observed in these definitions, all authors refer to the same concepts: \textbf{premises} (initial propositions, what is already known) and \textbf{conclusion} (final proposition obtained from the premises, representing new knowledge).
+
+\subsection{Elements of Reasoning: Content and Form}
+\label{subsec:content-form}
+
+In all reasoning, there exist two elements: \textbf{content} and \textbf{form}.
+
+\begin{itemize}
+    \item \textbf{Content}: What makes a proposition true or false. It is the reference to objects and properties. Content deals with the actual meaning and truth value of statements in the real world.
+    
+    \textit{Example}: In the proposition "It is raining," the content refers to the actual weather condition. This proposition can be true or false depending on whether it is actually raining.
+    
+    \item \textbf{Form}: The logical connection between the antecedents (what is already known, the premises) and the consequents (the conclusion inferred from the antecedents). This connection that implies inference is expressed through conjunctions. Form is what makes the proposition \textbf{valid}, and consists of using symbols to express the validity of propositions. Form deals with the logical structure of reasoning, independent of whether the statements are actually true or false.
+    
+    \textit{Example}: Consider the following reasoning:
+    \begin{itemize}
+        \item Premise 1: "If it rains, then the ground gets wet"
+        \item Premise 2: "It is raining"
+        \item Conclusion: "Therefore, the ground gets wet"
+    \end{itemize}
+    The form of this reasoning is: \texttt{If P, then Q. P. Therefore, Q.} This logical structure is valid regardless of whether it is actually raining or not. The same form can be applied to different content:
+    \begin{itemize}
+        \item Premise 1: "If John is a student, then John studies"
+        \item Premise 2: "John is a student"
+        \item Conclusion: "Therefore, John studies"
+    \end{itemize}
+    Both examples share the same valid logical form, even though they have different content.
+\end{itemize}
+
+The distinction between content and form is crucial: \textbf{content} determines whether propositions are true or false in the real world, while \textbf{form} determines whether the reasoning structure is valid (whether the conclusion follows logically from the premises).
+
+We speak of \textbf{valid reasoning} when the conclusion follows from the premises. A reasoning is considered valid based on its logical form, even if the conclusion or the premises are false. On the other hand, \textbf{invalid reasoning} occurs when, from true premises, a false conclusion is obtained.
+
+Table~\ref{tab:validity-reasoning} shows the different scenarios for reasoning validity based on the truth values of premises and conclusion:
+
+\begin{table}[H]
+\centering
+\caption{Validity or Non-Validity of a Reasoning}
+\label{tab:validity-reasoning}
+\begin{tabular}{p{5cm}p{4cm}p{4cm}}
+\toprule
+\textbf{If the premises are...} & \textbf{And the conclusion is...} & \textbf{The reasoning is...} \\
+\midrule
+True & True & \textcolor{green}{Valid} \\
+\midrule
+\rowcolor{gray!30}
+True & False & \textcolor{red}{Invalid} \\
+\midrule
+False & True & \textcolor{green}{Valid} \\
+\midrule
+False & False & \textcolor{green}{Valid} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The concept of reasoning validity is directly analogous to the truth conditions of a conditional proposition. Table~\ref{tab:conditional-truth} shows the truth table for a conditional proposition (p → q), where p represents the premises (antecedent) and q represents the conclusion (consequent):
+
+\begin{table}[H]
+\centering
+\caption{Truth Table of a Conditional Proposition}
+\label{tab:conditional-truth}
+\begin{tabular}{ccc}
+\toprule
+\textbf{p} & \textbf{q} & \textbf{p → q} \\
+\midrule
+1 (True) & 1 (True) & 1 (True) \\
+\midrule
+\rowcolor{gray!30}
+1 (True) & 0 (False) & 0 (False) \\
+\midrule
+0 (False) & 1 (True) & 1 (True) \\
+\midrule
+0 (False) & 0 (False) & 1 (True) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+As can be observed, the highlighted row in both tables (premises True, conclusion False) represents the only scenario where the reasoning is invalid and the conditional proposition is false. This emphasizes that an argument is invalid if and only if it is possible for its premises to be true and its conclusion false.
+
+The following examples illustrate each scenario from Table~\ref{tab:validity-reasoning}:
+
+\begin{enumerate}
+    \item \textbf{True premises → True conclusion (Valid)}:
+    \begin{itemize}
+        \item Premise 1: "If it rains, then the ground gets wet" (True)
+        \item Premise 2: "It is raining" (True)
+        \item Conclusion: "Therefore, the ground is wet" (True)
+    \end{itemize}
+    This reasoning is \textbf{valid} because the conclusion follows logically from the premises (modus ponens), and all statements are true.
+    
+    \item \textbf{True premises → False conclusion (Invalid)}:
+    \begin{itemize}
+        \item Premise 1: "All dogs are animals" (True)
+        \item Premise 2: "Lassie is an animal" (True)
+        \item Conclusion: "Therefore, Lassie is a dog" (False - Lassie could be any animal)
+    \end{itemize}
+    This reasoning is \textbf{invalid} because the conclusion does not follow from the premises (fallacy of affirming the consequent). Even though the premises are true, the logical form is incorrect, making it possible for the conclusion to be false.
+    
+    \item \textbf{False premises → True conclusion (Valid)}:
+    \begin{itemize}
+        \item Premise 1: "If it is July, then it is winter" (False - in the Northern Hemisphere)
+        \item Premise 2: "It is July" (False - assume it is actually January)
+        \item Conclusion: "Therefore, it is winter" (True - it is winter in January)
+    \end{itemize}
+    This reasoning is \textbf{valid} because the logical form (modus ponens) is correct, even though both premises are false and the conclusion happens to be true. The validity depends on the form, not the truth values.
+    
+    \item \textbf{False premises → False conclusion (Valid)}:
+    \begin{itemize}
+        \item Premise 1: "All insects are mammals" (False)
+        \item Premise 2: "Spiders are insects" (False - spiders are arachnids)
+        \item Conclusion: "Therefore, spiders are mammals" (False)
+    \end{itemize}
+    This reasoning is \textbf{valid} because the conclusion follows logically from the premises using a valid syllogistic form. Even though both premises and the conclusion are false, the logical structure is correct—if the premises were true, the conclusion would necessarily follow.
+\end{enumerate}

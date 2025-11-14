@@ -9,6 +9,7 @@
 \usepackage{bookmark}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{colortbl}
 \usepackage{float}
 \usepackage{booktabs}
 \usepackage{geometry}
@@ -23,6 +24,7 @@
 \usepackage{cancel}
 \usepackage{pdflscape}
 \usepackage{refcount}
+\usepackage[round]{natbib}
 
 % Page margins
 \geometry{margin=1in}
@@ -70,13 +72,23 @@ Notice that this document is fully customized to the author's needs, placing gre
 \tableofcontents
 \newpage
 
-% Include section files
-\input{sections/introduction_to_decision_making}
-\input{sections/problem_solving_stages}
-\input{sections/intelligent_agents}
-\input{sections/intelligent_agents_architectures}
+% Lecture 001
+\section*{Lecture 001}
+\input{lectures/lecture_001/introduction_to_decision_making}
+\input{lectures/lecture_001/problem_solving_stages}
+\input{lectures/lecture_001/intelligent_agents}
+\input{lectures/lecture_001/intelligent_agents_architectures}
+\input{lectures/lecture_001/summary_mindmap}
 
-% Summary
-\input{sections/summary_mindmap}
+% Lecture 002
+\section*{Lecture 002}
+\input{lectures/lecture_002/symbolic_representation_techniques}
+\input{lectures/lecture_002/introduction_to_reasoning}
+\input{lectures/lecture_002/reasoning_classification}
+\input{lectures/lecture_002/summary_mindmap}
+
+\newpage
+\bibliographystyle{plainnat}
+\bibliography{References}
 
 \end{document}
