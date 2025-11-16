@@ -1,0 +1,376 @@
+\section{Propositional Logic}
+\label{sec:propositional-logic}
+
+Propositional logic (also called sentential logic or statement logic) is the most basic form of logic. It deals with simple propositions that can be true or false, and how they can be combined using logical connectives.
+
+\subsection{Basic Concepts}
+\label{subsec:propositional-basics}
+
+A \textbf{proposition} is any statement or expression that has meaning and of which we can say whether it is false (F/0) or true (V/1). Propositions can be linked together using logical connectives to form structures with precise meaning.
+
+\textbf{Not propositions}: imperative sentences (commands like "read this"), exclamatory and interrogative sentences (questions like "what's your name?"), and instructions (like "go back").
+
+Propositions are usually represented with lowercase letters, e.g., $p$, $q$, $r$. By relating propositions, it's possible to obtain other propositions. All logical reasoning must necessarily start from an adequate connection of some elementary propositions.
+
+Propositions can be classified into:
+
+\begin{itemize}
+    \item \textbf{Tautologies}: A compound proposition is a tautology if it's true for all assignments of truth values to its component propositions. Its truth value doesn't depend on the truth values of the propositions that form it, but on the way syntactic relationships are established between propositions.
+    
+    \item \textbf{Contradictions}: Propositions that, in all possible cases of their truth table, are always false. Their false value doesn't depend on the truth values of the propositions that form them, but on the way syntactic relationships are established between propositions.
+    
+    \item \textbf{Contingencies, fallacies, or inconsistencies}: Also called "truth of fact," these are propositions that can be true or false, combining tautology and contradiction, depending on the values of the propositions that compose them.
+\end{itemize}
+
+A \textbf{truth table} is a table that shows all possible combinations of truth values for the component propositions and the resulting truth value of the compound proposition.
+
+\subsection{Logical Connectives}
+\label{subsec:logical-connectives}
+
+The main logical connectives and their truth tables are:
+
+\begin{itemize}
+    \item \textbf{Negation} ($\neg$): Denies a proposition. The negation of $p$ is true when $p$ is false, and false when $p$ is true.
+    
+    \begin{table}[H]
+    \centering
+    \caption{Truth Table for Negation}
+    \label{tab:negation}
+    \begin{tabular}{c|c}
+    \toprule
+    $p$ & $\neg p$ \\
+    \midrule
+    1 & 0 \\
+    0 & 1 \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    
+    \item \textbf{Conjunction} ($\land$): "And". The conjunction $p \land q$ is true only when both $p$ and $q$ are true.
+    
+    \begin{table}[H]
+    \centering
+    \caption{Truth Table for Conjunction}
+    \label{tab:conjunction}
+    \begin{tabular}{cc|c}
+    \toprule
+    $p$ & $q$ & $p \land q$ \\
+    \midrule
+    1 & 1 & 1 \\
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 0 \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    
+    \item \textbf{Non-exclusive disjunction} ($\lor$): "Or" (inclusive). The disjunction $p \lor q$ is true when at least one of $p$ or $q$ is true (or both).
+    
+    \begin{table}[H]
+    \centering
+    \caption{Truth Table for Non-exclusive Disjunction}
+    \label{tab:disjunction}
+    \begin{tabular}{cc|c}
+    \toprule
+    $p$ & $q$ & $p \lor q$ \\
+    \midrule
+    1 & 1 & 1 \\
+    1 & 0 & 1 \\
+    0 & 1 & 1 \\
+    0 & 0 & 0 \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    
+    \item \textbf{Exclusive disjunction} ($\oplus$ or $\veebar$): "Either...or" (exclusive). The exclusive disjunction $p \oplus q$ is true when exactly one of $p$ or $q$ is true, but not both.
+    
+    \begin{table}[H]
+    \centering
+    \caption{Truth Table for Exclusive Disjunction}
+    \label{tab:exclusive-disjunction}
+    \begin{tabular}{cc|c}
+    \toprule
+    $p$ & $q$ & $p \oplus q$ \\
+    \midrule
+    1 & 1 & 0 \\
+    1 & 0 & 1 \\
+    0 & 1 & 1 \\
+    0 & 0 & 0 \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    
+    \item \textbf{Conditional} ($\rightarrow$): "If...then". The conditional $p \rightarrow q$ is false only when $p$ is true and $q$ is false. Otherwise, it's true.
+    
+    \begin{table}[H]
+    \centering
+    \caption{Truth Table for Conditional}
+    \label{tab:conditional}
+    \begin{tabular}{cc|c}
+    \toprule
+    $p$ & $q$ & $p \rightarrow q$ \\
+    \midrule
+    1 & 1 & 1 \\
+    1 & 0 & 0 \\
+    0 & 1 & 1 \\
+    0 & 0 & 1 \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    
+    \item \textbf{Biconditional} ($\leftrightarrow$): "If and only if". The biconditional $p \leftrightarrow q$ is true when both $p$ and $q$ have the same truth value (both true or both false).
+    
+    \begin{table}[H]
+    \centering
+    \caption{Truth Table for Biconditional}
+    \label{tab:biconditional}
+    \begin{tabular}{cc|c}
+    \toprule
+    $p$ & $q$ & $p \leftrightarrow q$ \\
+    \midrule
+    1 & 1 & 1 \\
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1 \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+\end{itemize}
+
+Key concepts for relationships between propositions:
+
+\begin{itemize}
+    \item \textbf{Logical implication}: Any conditional that is a tautology. When a conditional statement ($p \rightarrow q$) is always true regardless of the truth values of its component propositions, it represents a logical implication.
+    
+    \textit{Example}: $(p \land q) \rightarrow p$ (if both $p$ and $q$ are true, then $p$ is true). This is a logical implication because the conditional is always true, as shown in Table~\ref{tab:logical-implication}:
+    
+    \begin{table}[H]
+    \centering
+    \caption{Truth Table for Logical Implication: $(p \land q) \rightarrow p$}
+    \label{tab:logical-implication}
+    \begin{tabular}{ccc|c}
+    \toprule
+    $p$ & $q$ & $p \land q$ & $(p \land q) \rightarrow p$ \\
+    \midrule
+    1 & 1 & 1 & \textcolor{green}{1} \\
+    1 & 0 & 0 & \textcolor{green}{1} \\
+    0 & 1 & 0 & \textcolor{green}{1} \\
+    0 & 0 & 0 & \textcolor{green}{1} \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    
+    \item \textbf{Logical equivalence}: Any biconditional that is a tautology. When a biconditional statement ($p \leftrightarrow q$) is always true regardless of the truth values of its component propositions, the propositions are logically equivalent.
+    
+    \textit{Example}: $\neg(\neg p) \leftrightarrow p$ (double negation). This is a logical equivalence because the biconditional is always true, as shown in Table~\ref{tab:logical-equivalence}:
+    
+    \begin{table}[H]
+    \centering
+    \caption{Truth Table for Logical Equivalence: $\neg(\neg p) \leftrightarrow p$}
+    \label{tab:logical-equivalence}
+    \begin{tabular}{cc|c}
+    \toprule
+    $p$ & $\neg(\neg p)$ & $\neg(\neg p) \leftrightarrow p$ \\
+    \midrule
+    1 & 1 & \textcolor{green}{1} \\
+    0 & 0 & \textcolor{green}{1} \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+\end{itemize}
+
+\subsubsection{Example: Robbery Investigation}
+\label{subsubsec:robbery-example}
+
+\textbf{Problem statement}: A robbery has occurred and it's known that the perpetrators fled in a car. Three known criminals (Par, Qun, and Rag) are interrogated. The police obtain the following information:
+
+\begin{enumerate}
+    \item Par, Qun, and Rag are the only possible culprits
+    \item Rag never does a job without Par as an accomplice (doesn't exclude others)
+    \item Qun doesn't know how to drive
+\end{enumerate}
+
+How can we identify the guilty persons?
+
+\textbf{Solution using Truth Tables}:
+
+\textit{Step 1: Define propositions}
+
+Let's represent each suspect with a proposition:
+\begin{itemize}
+    \item $P$: Par participated in the robbery
+    \item $Q$: Qun participated in the robbery
+    \item $R$: Rag participated in the robbery
+\end{itemize}
+
+\textit{Step 2: Translate information into logical statements}
+
+\begin{enumerate}
+    \item At least one person participated (there was a robbery): $P \lor Q \lor R$
+    \item Rag never works without Par: $R \rightarrow P$
+    \item Qun doesn't know how to drive, someone must drive: $Q \rightarrow (P \lor R)$
+\end{enumerate}
+
+Let $C$ represent all constraints combined:
+$$C = (P \lor Q \lor R) \land (R \rightarrow P) \land (Q \rightarrow (P \lor R))$$
+
+\textit{Step 3: Build the truth table for all combinations}
+
+\begin{table}[H]
+\centering
+\caption{Truth Table for Constraints}
+\label{tab:robbery-truth-table}
+\begin{tabular}{ccc|ccc|c}
+\toprule
+$P$ & $Q$ & $R$ & $P \lor Q \lor R$ & $R \rightarrow P$ & $Q \rightarrow (P \lor R)$ & $C$ \\
+\midrule
+0 & 0 & 0 & 0 & 1 & 1 & 0 \\
+\rowcolor{gray!30}
+0 & 0 & 1 & 1 & 0 & 1 & 0 \\
+\rowcolor{gray!30}
+0 & 1 & 0 & 1 & 1 & 0 & 0 \\
+\rowcolor{gray!30}
+0 & 1 & 1 & 1 & 0 & 1 & 0 \\
+1 & 0 & 0 & 1 & 1 & 1 & \textcolor{green}{1} \\
+1 & 0 & 1 & 1 & 1 & 1 & \textcolor{green}{1} \\
+1 & 1 & 0 & 1 & 1 & 1 & \textcolor{green}{1} \\
+1 & 1 & 1 & 1 & 1 & 1 & \textcolor{green}{1} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Notice that $C = 1$ (constraints are satisfied) only when $P = 1$ in rows 5, 6, 7, and 8.
+
+\textit{Step 4: Check which suspects must be guilty using logical implication}
+
+To determine who must be guilty, we check if $C \rightarrow X$ is a tautology for each suspect $X$:
+
+\begin{table}[H]
+\centering
+\caption{Testing Logical Implications}
+\label{tab:robbery-implications}
+\begin{tabular}{ccc|c|ccc}
+\toprule
+$P$ & $Q$ & $R$ & $C$ & $C \rightarrow P$ & $C \rightarrow Q$ & $C \rightarrow R$ \\
+\midrule
+0 & 0 & 0 & 0 & 1 & 1 & 1 \\
+0 & 0 & 1 & 0 & 1 & 1 & 1 \\
+0 & 1 & 0 & 0 & 1 & 1 & 1 \\
+0 & 1 & 1 & 0 & 1 & 1 & 1 \\
+1 & 0 & 0 & 1 & \textcolor{green}{1} & \textcolor{red}{0} & \textcolor{red}{0} \\
+1 & 0 & 1 & 1 & \textcolor{green}{1} & \textcolor{red}{0} & \textcolor{green}{1} \\
+1 & 1 & 0 & 1 & \textcolor{green}{1} & \textcolor{green}{1} & \textcolor{red}{0} \\
+1 & 1 & 1 & 1 & \textcolor{green}{1} & \textcolor{green}{1} & \textcolor{green}{1} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textit{Step 5: Conclusion}
+
+\begin{itemize}
+    \item $C \rightarrow P$ is a \textbf{tautology} (all values are 1) $\rightarrow$ \textbf{Par is definitely guilty}
+    \item $C \rightarrow Q$ is \textbf{not} a tautology (contains 0) $\rightarrow$ Qun may or may not be guilty
+    \item $C \rightarrow R$ is \textbf{not} a tautology (contains 0) $\rightarrow$ Rag may or may not be guilty
+\end{itemize}
+
+\textbf{Answer}: \textbf{Par is definitely guilty}. We cannot determine with certainty whether Qun and/or Rag participated. Since $C \rightarrow P$ is a tautology, $P$ is a \textbf{logical consequence} of the constraints.
+
+\textbf{Alternative Solution using Logical Reasoning}:
+
+We can also solve this by analyzing scenarios:
+
+Notice that in \textbf{all valid scenarios (where $C = 1$), Par must be true}:
+\begin{itemize}
+    \item Par alone: $P \land \neg Q \land \neg R$ (row 5)
+    \item Par and Rag: $P \land \neg Q \land R$ (row 6)
+    \item Par and Qun: $P \land Q \land \neg R$ (row 7)
+    \item All three: $P \land Q \land R$ (row 8)
+\end{itemize}
+
+We can prove Par's guilt by contradiction:
+\begin{itemize}
+    \item Suppose $\neg P$ (Par didn't participate)
+    \item From $R \rightarrow P$, by contrapositive: $\neg P \rightarrow \neg R$, so Rag didn't participate
+    \item If only Qun participated ($Q \land \neg P \land \neg R$), no one could drive $\rightarrow$ impossible
+    \item Therefore, $P$ must be true
+\end{itemize}
+
+\subsection{Propositional Logic - Detailed Concept Map}
+\label{subsec:propositional-logic-conceptmap}
+
+\begin{figure}[H]
+\centering
+\resizebox{1\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance=1.3cm and 1.8cm,
+    box/.style={rectangle, draw, fill=blue!10, text width=3.8cm, align=center, minimum height=1cm, font=\small},
+    titlebox/.style={rectangle, draw, fill=red!30, text width=5cm, align=center, minimum height=1.2cm, font=\bfseries},
+    smallbox/.style={rectangle, draw, fill=green!10, text width=3.2cm, align=left, minimum height=0.8cm, font=\scriptsize},
+    arrow/.style={->, >=stealth, thick}
+]
+
+% Main title
+\node[titlebox] (main) at (0,0) {\Large Propositional Logic};
+
+% Row 1: Basic Concepts
+\node[box, fill=orange!20, below left=of main, xshift=-5cm, ] (basics) {\hyperref[subsec:propositional-basics]{\textbf{Basic Concepts}}\\Propositions \& truth};
+\node[smallbox, below=0.7cm of basics, xshift=-2cm] (basics-1) {\hyperref[subsec:propositional-basics]{\textbf{Propositions:}} Declarative\\statements, T/F};
+\node[smallbox, below=0.7cm of basics, xshift=2cm] (basics-2) {\hyperref[subsec:propositional-basics]{\textbf{Variables:}} $p, q, r$\\lowercase letters};
+\node[smallbox, below=2.3cm of basics] (basics-3) {\hyperref[subsec:propositional-basics]{\textbf{Truth Tables:}} All possible\\value combinations};
+
+% Row 1: Logical Connectives
+\node[box, fill=cyan!20, below right=of main, xshift=5cm, ] (connectives) {\hyperref[subsec:logical-connectives]{\textbf{Logical Connectives}}\\Combining propositions};
+\node[smallbox, below=0.7cm of connectives, xshift=-2cm] (conn-1) {\hyperref[subsec:logical-connectives]{\textbf{Basic:}} $\neg, \land, \lor$\\Negation, And, Or};
+\node[smallbox, below=0.7cm of connectives, xshift=2cm] (conn-2) {\hyperref[subsec:logical-connectives]{\textbf{Complex:}} $\rightarrow, \leftrightarrow, \oplus$\\Conditional, Biconditional};
+
+% Row 2: Classification
+\node[box, fill=purple!20, below=8cm of main, xshift=-11cm] (class) {\hyperref[subsec:propositional-basics]{\textbf{Classification}}\\Types of propositions};
+\node[smallbox, below=0.7cm of class, xshift=-4cm] (class-1) {\hyperref[subsec:propositional-basics]{\textbf{Tautology:}} Always true\\regardless of values};
+\node[smallbox, below=0.7cm of class] (class-2) {\hyperref[subsec:propositional-basics]{\textbf{Contradiction:}} Always false\\regardless of values};
+\node[smallbox, below=0.7cm of class, xshift=4cm] (class-3) {\hyperref[subsec:propositional-basics]{\textbf{Contingency:}} Sometimes true,\\sometimes false};
+
+% Row 2: Logical Relations
+\node[box, fill=green!20, below=5cm of main, xshift=-4cm] (relations) {\hyperref[subsec:propositional-basics]{\textbf{Logical Relations}}\\Between propositions};
+\node[smallbox, below=0.7cm of relations, xshift=-2cm] (rel-1) {\hyperref[subsec:propositional-basics]{\textbf{Implication:}} Conditional\\tautology};
+\node[smallbox, below=0.7cm of relations, xshift=2cm] (rel-2) {\hyperref[subsec:propositional-basics]{\textbf{Equivalence:}} Biconditional\\tautology};
+
+% Row 2: Truth Tables
+\node[box, fill=yellow!20, below=5cm of main, xshift=4cm] (tables) {\hyperref[subsec:logical-connectives]{\textbf{Truth Tables}}\\Visual verification};
+\node[smallbox, below=0.7cm of tables, xshift=-2cm] (tab-1) {\hyperref[subsec:logical-connectives]{\textbf{Values:}} 0 (false)\\1 (true)};
+\node[smallbox, below=0.7cm of tables, xshift=2cm] (tab-2) {\hyperref[subsec:logical-connectives]{\textbf{Purpose:}} Verify\\tautologies};
+
+% Row 2: Examples
+\node[box, fill=pink!20, below=8cm of main, xshift=11cm] (examples) {\hyperref[subsec:propositional-basics]{\textbf{Practical Example}}\\Robbery investigation};
+\node[smallbox, below=0.7cm of examples, xshift=-2cm] (ex-1) {\hyperref[subsec:propositional-basics]{\textbf{Method:}} Truth table\\analysis};
+\node[smallbox, below=0.7cm of examples, xshift=2cm] (ex-2) {\hyperref[subsec:propositional-basics]{\textbf{Goal:}} Identify\\logical consequences};
+
+% Arrows from main
+\draw[arrow] (main) -- (basics);
+\draw[arrow] (main) -- (connectives);
+\draw[arrow] (main) -- (class);
+\draw[arrow] (main) -- (relations);
+\draw[arrow] (main) -- (tables);
+\draw[arrow] (main) -- (examples);
+
+% Arrows to sub-boxes
+\draw[arrow] (basics) -- (basics-1);
+\draw[arrow] (basics) -- (basics-2);
+\draw[arrow] (basics) -- (basics-3);
+\draw[arrow] (connectives) -- (conn-1);
+\draw[arrow] (connectives) -- (conn-2);
+\draw[arrow] (class) -- (class-1);
+\draw[arrow] (class) -- (class-2);
+\draw[arrow] (class) -- (class-3);
+\draw[arrow] (relations) -- (rel-1);
+\draw[arrow] (relations) -- (rel-2);
+\draw[arrow] (tables) -- (tab-1);
+\draw[arrow] (tables) -- (tab-2);
+\draw[arrow] (examples) -- (ex-1);
+\draw[arrow] (examples) -- (ex-2);
+
+\end{tikzpicture}
+}
+\caption{Detailed conceptual map of Propositional Logic}
+\label{fig:propositional-logic-conceptmap}
+\end{figure}
+

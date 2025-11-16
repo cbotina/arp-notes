@@ -1,0 +1,576 @@
+\section{Description Logic ALC}
+\label{sec:description-logic-alc}
+
+Description logics are more than languages for formalizing concepts—they are a set of knowledge representation languages used to represent the terminological knowledge of a specific domain in a structured and formal way, ensuring clear understanding.
+
+They are used to represent \textbf{ontologies} (formalization of a domain) and enable reasoning about them. They introduce new language and semantic elements necessary to formalize:
+
+Description logics are particularly appropriate for the \textbf{semantic web} because they are useful for adding reasoning capabilities to the web. They have a formal syntax that allows describing:
+\begin{itemize}
+    \item Important concepts of a universe or domain
+    \item Relationships that arise or exist between them
+    \item Constructors for building new concepts
+\end{itemize}
+
+Like all formal logics, they make it possible to reason based on knowledge that has been defined as such. Description logics are \textbf{variants of first-order logic}.
+
+
+The formal characteristics of description logic include:
+
+\begin{itemize}
+    \item \textbf{Ontology modeling}: They model ontologies, provide descriptions to domains, and formalize the elements of a terminology or descriptions of an ontology. The syntax and semantics have no ambiguity, as they are formal.
+    
+    \item \textbf{Descriptive formalism}: Uses three main components:
+    \begin{itemize}
+        \item \textbf{Roles}: Represent relationships between individuals (e.g., "hasChild", "teaches")
+        \item \textbf{Constructors}: Build complex concepts from simpler ones (e.g., conjunction, disjunction, negation, quantifiers)
+        \item \textbf{Concepts}: Represent classes or categories of individuals (e.g., "Student", "Teacher", "Person")
+    \end{itemize}
+\end{itemize}
+
+\subsection{ALC Building Blocks}
+\label{subsec:alc-building-blocks}
+
+ALC (Attributive Language with Complements) is built from atomic types and constructors that allow building complex concepts.
+
+\subsubsection{Atomic Types}
+\label{subsubsec:atomic-types}
+
+\begin{itemize}
+    \item \textbf{Concept names}: $A, B, \ldots$ — Individual concept identifiers (e.g., "Student", "Teacher", "Person")
+    
+    \item \textbf{Special concepts}:
+    \begin{itemize}
+        \item $\top$ — \textbf{Top} (universal concept): Represents the concept that encompasses all individuals
+        \item $\bot$ — \textbf{Bottom} (empty concept): Represents the empty or contradictory concept that encompasses no individuals
+    \end{itemize}
+    
+    \item \textbf{Role names}: $R, S, \ldots$ — Individual role identifiers representing relationships (e.g., "hasChild", "teaches", "loves")
+\end{itemize}
+
+\subsubsection{Constructors}
+\label{subsubsec:constructors}
+
+Constructors are used to build complex concepts from simpler ones:
+
+\begin{itemize}
+    \item \textbf{Negation}: $\neg C$ — The negation of concept $C$ (everything that is not $C$)
+    
+    \item \textbf{Conjunction}: $C \sqcap D$ — The intersection of concepts $C$ and $D$ (individuals that belong to both $C$ and $D$)
+    
+    \item \textbf{Disjunction}: $C \sqcup D$ — The union of concepts $C$ and $D$ (individuals that belong to $C$ or $D$ or both)
+    
+    \item \textbf{Existential quantifier}: $\exists R.C$ — "There exists" — Individuals that have at least one $R$-relationship to an individual in concept $C$
+    
+    \item \textbf{Universal quantifier}: $\forall R.C$ — "For all" — Individuals where all $R$-relationships lead to individuals in concept $C$
+\end{itemize}
+
+\subsubsection{Class Relationships}
+\label{subsubsec:class-relationships}
+
+ALC allows expressing relationships between concepts:
+
+\begin{itemize}
+    \item \textbf{Class Inclusion}: $C \sqsubseteq D$ — Concept $C$ is a subclass of $D$ (every $C$ is a $D$)
+    
+    \textit{Example}: $Professor \sqsubseteq FacultyMember$ means "every Professor is a Faculty Member"
+    
+    In first-order logic: $\forall x \ (Professor(x) \rightarrow FacultyMember(x))$
+    
+    \item \textbf{Class Equivalence}: $C \equiv D$ — Concepts $C$ and $D$ are equivalent (they represent the same set of individuals)
+    
+    \textit{Example}: $Professor \equiv FacultyMember$ means "the Faculty Members are exactly the Professors"
+    
+    In first-order logic: $\forall x \ (Professor(x) \leftrightarrow FacultyMember(x))$
+\end{itemize}
+
+\subsection{Quantifiers on Roles}
+\label{subsec:quantifiers-roles}
+
+Quantifiers can be used to bind the range of a role to a class, restricting what types of individuals can be related through that role. There are two main types of binding:
+
+\subsubsection{Strict Binding}
+\label{subsubsec:strict-binding}
+
+\textbf{Strict binding} uses the universal quantifier ($\forall$) to require that \textbf{all} relationships through a role must satisfy a constraint.
+
+\textit{Example}: $Examination \sqsubseteq \forall hasSupervisor.Professor$
+
+\begin{itemize}
+    \item \textbf{Natural language}: "An Examination must be supervised by a Professor" (all supervisors must be professors)
+    
+    \item \textbf{First-order logic}: $\forall x \ (Examination(x) \rightarrow (\forall y \ (hasSupervisor(x,y) \rightarrow Professor(y))))$
+    
+    This reads: "For all $x$, if $x$ is an Examination, then for all $y$, if $x$ has supervisor $y$, then $y$ is a Professor."
+\end{itemize}
+
+Strict binding means that if an examination has any supervisor, that supervisor \textbf{must} be a professor. It doesn't require that an examination has a supervisor, but if it does, all supervisors must be professors.
+
+\subsubsection{Open Binding}
+\label{subsubsec:open-binding}
+
+\textbf{Open binding} uses the existential quantifier ($\exists$) to require that \textbf{at least one} relationship through a role exists and satisfies a constraint.
+
+\textit{Example}: $Examination \sqsubseteq \exists hasSupervisor.Person$
+
+\begin{itemize}
+    \item \textbf{Natural language}: "Every Examination has at least one supervisor (who is a person)"
+    
+    \item \textbf{First-order logic}: $\forall x \ (Examination(x) \rightarrow (\exists y \ (hasSupervisor(x,y) \land Person(y))))$
+    
+    This reads: "For all $x$, if $x$ is an Examination, then there exists a $y$ such that $x$ has supervisor $y$ and $y$ is a Person."
+\end{itemize}
+
+Open binding means that every examination \textbf{must have} at least one supervisor, and that supervisor must be a person. However, it doesn't restrict what other supervisors (if any) the examination might have.
+
+\subsection{ALC - Formal Syntax}
+\label{subsec:alc-formal-syntax}
+
+The formal syntax of ALC defines how concepts (classes) can be constructed and how knowledge bases are structured.
+
+\subsubsection{Production Rules for Classes}
+\label{subsubsec:production-rules}
+
+The production rules define how complex classes can be built from atomic components. Let $A$ be an atomic class, $C$ and $D$ be complex classes, and $R$ be a role.
+
+The formal grammar for creating classes in ALC is:
+
+$$C, D ::= A \mid \top \mid \bot \mid \neg C \mid C \sqcap D \mid C \sqcup D \mid \exists R.C \mid \forall R.C$$
+
+This means that a class $C$ or $D$ can be:
+\begin{itemize}
+    \item An atomic class $A$
+    \item The top concept $\top$ (universal concept)
+    \item The bottom concept $\bot$ (empty concept)
+    \item The negation of a class $\neg C$
+    \item The conjunction of two classes $C \sqcap D$
+    \item The disjunction of two classes $C \sqcup D$
+    \item An existential restriction $\exists R.C$ (there exists an $R$-relationship to a $C$)
+    \item A universal restriction $\forall R.C$ (all $R$-relationships lead to a $C$)
+\end{itemize}
+
+\subsubsection{TBox (Terminological Box)}
+\label{subsubsec:tbox}
+
+A \textbf{TBox} contains terminological knowledge—assertions about relationships between concepts (classes). It defines the vocabulary and structure of the domain.
+
+An ALC TBox contains assertions of the form:
+\begin{itemize}
+    \item $C \sqsubseteq D$ — Concept inclusion (subsumption): $C$ is a subclass of $D$
+    \item $C \equiv D$ — Concept equivalence: $C$ and $D$ are equivalent
+\end{itemize}
+
+where $C$ and $D$ are complex classes.
+
+\textit{Examples}:
+\begin{itemize}
+    \item $Student \sqsubseteq Person$ — "Every student is a person"
+    \item $Professor \equiv FacultyMember$ — "Professors and faculty members are the same"
+    \item $Examination \sqsubseteq \forall hasSupervisor.Professor$ — "Examinations must be supervised by professors"
+\end{itemize}
+
+\subsubsection{ABox (Assertional Box)}
+\label{subsubsec:abox}
+
+An \textbf{ABox} contains assertional knowledge—facts about specific individuals in the domain.
+
+An ALC ABox contains assertions of the form:
+\begin{itemize}
+    \item $C(a)$ — Concept assertion: Individual $a$ belongs to class $C$
+    \item $R(a,b)$ — Role assertion: Individual $a$ is related to individual $b$ through role $R$
+\end{itemize}
+
+where $C$ is a complex class, $R$ is a role, and $a, b$ are individuals.
+
+\textit{Examples}:
+\begin{itemize}
+    \item $Student(john)$ — "John is a student"
+    \item $Professor(mary)$ — "Mary is a professor"
+    \item $teaches(mary, john)$ — "Mary teaches John"
+    \item $(Student \sqcap \exists hasSupervisor.Professor)(alice)$ — "Alice is a student who has a professor as supervisor"
+\end{itemize}
+
+
+Together, the TBox and ABox form a complete knowledge base that allows reasoning about both the structure of concepts and specific instances in the domain.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Curious Fact: What are Semantics?]
+\textbf{Semantics} refers to the meaning or interpretation of formal expressions. While \textbf{syntax} defines the structure and rules for forming valid expressions (like grammar rules), semantics assigns meaning to those expressions by interpreting them in a specific domain or model.
+
+In logic, semantics provides a way to determine whether statements are true or false by mapping formal symbols to real-world objects, properties, and relationships. For example, in ALC, semantics tells us what it means for an individual to belong to a concept or for two individuals to be related through a role.
+
+\textbf{Real-world example}: Consider the expression "$Student(john)$". The \textbf{syntax} tells us this is a valid ALC expression (a concept assertion). The \textbf{semantics} tells us what it means: we need an interpretation that maps "$john$" to an actual person (say, John Smith) and "$Student$" to the set of all students. Only then can we determine if the statement is true (is John Smith actually a student?) or false (is he not a student?). Without semantics, "$Student(john)$" is just a string of symbols with no meaning.
+
+Model-theoretic semantics (used in ALC) defines meaning through interpretations that map formal expressions to sets and relations in a mathematical domain, allowing us to reason about truth and entailment.
+\end{tcolorbox}
+
+\subsection{ALC - Semantics (Interpretation)}
+\label{subsec:alc-semantics}
+
+ALC uses a \textbf{model-theoretic semantics}, meaning that entailment (logical consequence) is defined through interpretations. This provides a formal way to assign meaning to ALC expressions.
+
+An \textbf{interpretation} $\mathcal{I} = (\Delta^{\mathcal{I}}, \cdot^{\mathcal{I}})$ consists of:
+
+\begin{itemize}
+    \item \textbf{Domain} $\Delta^{\mathcal{I}}$: A non-empty set of individuals (the universe of discourse). This represents all the objects in the domain we're modeling.
+    
+    \item \textbf{Interpretation function} $\cdot^{\mathcal{I}}$: A function that maps:
+    \begin{itemize}
+        \item \textbf{Individual names} $a$ to domain elements: $a^{\mathcal{I}} \in \Delta^{\mathcal{I}}$
+        
+        \item \textbf{Class names} $C$ to sets of domain elements: $C^{\mathcal{I}} \subseteq \Delta^{\mathcal{I}}$
+        
+        \item \textbf{Role names} $R$ to sets of pairs of domain elements: $R^{\mathcal{I}} \subseteq \Delta^{\mathcal{I}} \times \Delta^{\mathcal{I}}$
+    \end{itemize}
+\end{itemize}
+
+The interpretation function $\cdot^{\mathcal{I}}$ provides the semantic meaning by mapping abstract symbols (names) to concrete mathematical objects (elements, sets, and relations) in the domain.
+
+\textbf{Example}: Consider a university domain with the following interpretation $\mathcal{I}$:
+
+\begin{itemize}
+    \item \textbf{Domain}: $\Delta^{\mathcal{I}} = \{john, mary, alice, bob\}$
+    
+    \item \textbf{Individual names}:
+    \begin{itemize}
+        \item $john^{\mathcal{I}} = john$ (the person John)
+        \item $mary^{\mathcal{I}} = mary$ (the person Mary)
+        \item $alice^{\mathcal{I}} = alice$ (the person Alice)
+        \item $bob^{\mathcal{I}} = bob$ (the person Bob)
+    \end{itemize}
+    
+    \item \textbf{Class names}:
+    \begin{itemize}
+        \item $Student^{\mathcal{I}} = \{john, alice, bob\}$ (John, Alice, and Bob are students)
+        \item $Professor^{\mathcal{I}} = \{mary\}$ (Mary is a professor)
+        \item $Person^{\mathcal{I}} = \{john, mary, alice, bob\}$ (all individuals are persons)
+    \end{itemize}
+    
+    \item \textbf{Role names}:
+    \begin{itemize}
+        \item $teaches^{\mathcal{I}} = \{(mary, john), (mary, alice)\}$ (Mary teaches John and Alice)
+        \item $hasSupervisor^{\mathcal{I}} = \{(alice, mary)\}$ (Alice has Mary as supervisor)
+    \end{itemize}
+\end{itemize}
+
+With this interpretation, we can determine the truth of assertions:
+\begin{itemize}
+    \item $Student(john)$ is \textbf{true} because $john^{\mathcal{I}} \in Student^{\mathcal{I}}$
+    \item $Professor(john)$ is \textbf{false} because $john^{\mathcal{I}} \notin Professor^{\mathcal{I}}$
+    \item $teaches(mary, john)$ is \textbf{true} because $(mary^{\mathcal{I}}, john^{\mathcal{I}}) \in teaches^{\mathcal{I}}$
+    \item $teaches(mary, bob)$ is \textbf{false} because $(mary^{\mathcal{I}}, bob^{\mathcal{I}}) \notin teaches^{\mathcal{I}}$
+\end{itemize}
+
+\subsubsection{Semantic Interpretation of Constructors}
+\label{subsubsec:semantic-constructors}
+
+The interpretation function extends to complex concepts built using constructors. The semantic interpretation rules are:
+
+\begin{itemize}
+    \item \textbf{Top and Bottom concepts}:
+    \begin{itemize}
+        \item $\top^{\mathcal{I}} = \Delta^{\mathcal{I}}$ — The top concept is interpreted as the entire domain
+        \item $\bot^{\mathcal{I}} = \emptyset$ — The bottom concept is interpreted as the empty set
+    \end{itemize}
+    
+    \item \textbf{Conjunction and Disjunction}:
+    \begin{itemize}
+        \item $(C \sqcup D)^{\mathcal{I}} = C^{\mathcal{I}} \cup D^{\mathcal{I}}$ — Disjunction is interpreted as set union
+        \item $(C \sqcap D)^{\mathcal{I}} = C^{\mathcal{I}} \cap D^{\mathcal{I}}$ — Conjunction is interpreted as set intersection
+    \end{itemize}
+    
+    \item \textbf{Negation}:
+    \begin{itemize}
+        \item $(\neg C)^{\mathcal{I}} = \Delta^{\mathcal{I}} \setminus C^{\mathcal{I}}$ — Negation is interpreted as set difference (complement)
+    \end{itemize}
+    
+    \item \textbf{Universal quantifier}:
+    \begin{itemize}
+        \item $(\forall R.C)^{\mathcal{I}} = \{a \in \Delta^{\mathcal{I}} \mid (\forall b \in \Delta^{\mathcal{I}}) ((a,b) \in R^{\mathcal{I}} \rightarrow b \in C^{\mathcal{I}})\}$
+        
+        An individual $a$ belongs to $\forall R.C$ if, for all individuals $b$ related to $a$ through role $R$, $b$ belongs to concept $C$.
+    \end{itemize}
+    
+    \item \textbf{Existential quantifier}:
+    \begin{itemize}
+        \item $(\exists R.C)^{\mathcal{I}} = \{a \in \Delta^{\mathcal{I}} \mid (\exists b \in \Delta^{\mathcal{I}}) ((a,b) \in R^{\mathcal{I}} \land b \in C^{\mathcal{I}})\}$
+        
+        An individual $a$ belongs to $\exists R.C$ if there exists at least one individual $b$ related to $a$ through role $R$ such that $b$ belongs to concept $C$.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Properties}
+\label{subsec:properties}
+
+The following properties describe how individuals belong to concepts based on their relationships through roles:
+
+\begin{itemize}
+    \item \hypertarget{item:existential}{\textbf{Existential}} ($\exists R.C$):
+    
+    An individual $x$ belongs to $\exists R.C$ if there exists some value $y \in C$ such that $R(x, y)$.
+    
+    \textit{Example}: An individual belongs to $\exists hasChild.Student$ if they have at least one child who is a student.
+    
+    \item \hypertarget{item:universal}{\textbf{Universal}} ($\forall R.C$):
+    
+    An individual $x$ belongs to $\forall R.C$ if for all $y$, if $R(x, y)$, then $y \in C$.
+    
+    \textit{Example}: An individual belongs to $\forall hasChild.Student$ if all their children are students.
+    
+    \item \hypertarget{item:cardinality}{\textbf{Cardinality}} ($= n R.C$):
+    
+    An individual $x$ belongs to $(= n R.C)$ if there exist exactly $n$ individuals $y \in C$ such that $R(x, y)$.
+    
+    \textit{Example}: An individual belongs to $(= 2 hasChild.Person)$ if they have exactly 2 children.
+    
+    \item \hypertarget{item:max-cardinality}{\textbf{Maximum cardinality}} ($\leq n R.C$):
+    
+    An individual $x$ belongs to $(\leq n R.C)$ if there exist $n$ or fewer individuals $y \in C$ such that $R(x, y)$.
+    
+    \textit{Example}: An individual belongs to $(\leq 3 hasChild.Person)$ if they have at most 3 children.
+    
+    \item \hypertarget{item:min-cardinality}{\textbf{Minimum cardinality}} ($\geq n R.C$):
+    
+    An individual $x$ belongs to $(\geq n R.C)$ if there exist $n$ or more individuals $y \in C$ such that $R(x, y)$.
+    
+    \textit{Example}: An individual belongs to $(\geq 1 hasChild.Student)$ if they have at least 1 child who is a student.
+\end{itemize}
+
+\subsubsection{Property Attributes}
+\label{subsubsec:property-attributes}
+
+Properties (relations/roles) can have the following attributes that describe how they behave. These attributes are important for understanding the structure and constraints of relationships in a knowledge base.
+
+\begin{itemize}
+    \item \hypertarget{item:reflexive}{\textbf{Reflexive}} ($\forall x \ P(x, x)$):
+    
+    A property $P$ is reflexive if every element is related to itself through $P$.
+    
+    \textit{Example}: The relation "is equal to" is reflexive because every element is equal to itself: $\forall x \ (x = x)$. In a university domain, "hasSameAge" could be reflexive if we consider that everyone has the same age as themselves.
+    
+    \item \hypertarget{item:irreflexive}{\textbf{Irreflexive}} ($\forall x \ \neg P(x, x)$):
+    
+    A property $P$ is irreflexive if no element is related to itself through $P$.
+    
+    \textit{Example}: The relation "is parent of" is irreflexive because no one is their own parent: $\forall x \ \neg Parent(x, x)$. Similarly, "teaches" is typically irreflexive (a professor doesn't teach themselves).
+    
+    \item \hypertarget{item:symmetry}{\textbf{Symmetry}} (If $P(x, y)$ then $P(y, x)$):
+    
+    A property $P$ is symmetric if whenever $x$ is related to $y$ through $P$, then $y$ is also related to $x$ through $P$.
+    
+    \textit{Example}: The relation "is sibling of" is symmetric because if $x$ is a sibling of $y$, then $y$ is a sibling of $x$: if $Sibling(x, y)$ then $Sibling(y, x)$. Another example: "is married to" is symmetric.
+    
+    \item \hypertarget{item:asymmetry}{\textbf{Asymmetry}} (If $P(x, y)$ then $\neg P(y, x)$):
+    
+    A property $P$ is asymmetric if whenever $x$ is related to $y$ through $P$, then $y$ cannot be related to $x$ through $P$.
+    
+    \textit{Example}: The relation "is parent of" is asymmetric because if $x$ is a parent of $y$, then $y$ cannot be a parent of $x$: if $Parent(x, y)$ then $\neg Parent(y, x)$. Another example: "teaches" is typically asymmetric (if Mary teaches John, John doesn't teach Mary).
+    
+    \item \hypertarget{item:transitivity}{\textbf{Transitivity}} (If $P(x, y)$ and $P(y, z)$ then $P(x, z)$):
+    
+    A property $P$ is transitive if whenever $x$ is related to $y$ and $y$ is related to $z$ through $P$, then $x$ is also related to $z$ through $P$.
+    
+    \textit{Example}: The relation "is ancestor of" is transitive because if $x$ is an ancestor of $y$ and $y$ is an ancestor of $z$, then $x$ is an ancestor of $z$: if $Ancestor(x, y)$ and $Ancestor(y, z)$ then $Ancestor(x, z)$. Another example: "is part of" is transitive (if A is part of B and B is part of C, then A is part of C).
+\end{itemize}
+
+\subsubsection{Relationships between Properties}
+\label{subsubsec:relationships-properties}
+
+Properties (relations) can have relationships with each other. These relationships define how different properties are related in the knowledge base.
+
+\begin{itemize}
+    \item \hypertarget{item:inverse}{\textbf{Inverse}} ($P$ is inverse of $Q$ $\Leftrightarrow$ $P(x, y) \Leftrightarrow Q(y, x)$):
+    
+    A property $P$ is the inverse of property $Q$ if whenever $x$ is related to $y$ through $P$, then $y$ is related to $x$ through $Q$, and vice versa.
+    
+    \textit{Example}: If $P$ is "hasChild" and $Q$ is "hasParent", then $P$ is the inverse of $Q$ because if $hasChild(x, y)$ (x has child y), then $hasParent(y, x)$ (y has parent x), and if $hasParent(y, x)$ (y has parent x), then $hasChild(x, y)$ (x has child y). So $hasChild(x, y) \Leftrightarrow hasParent(y, x)$. Another example: "teaches" and "isTaughtBy" are inverses: if $teaches(x, y)$ then $isTaughtBy(y, x)$.
+    
+    \item \hypertarget{item:subproperty}{\textbf{Subproperty}} ($P$ is subproperty of $Q$ if $P(x, y) \Rightarrow Q(x, y)$):
+    
+    A property $P$ is a subproperty of property $Q$ if whenever $x$ is related to $y$ through $P$, then $x$ is also related to $y$ through $Q$.
+    
+    \textit{Example}: If $P$ is "hasSon" and $Q$ is "hasChild", then $P$ is a subproperty of $Q$ because if $hasSon(x, y)$ (x has son y), then $hasChild(x, y)$ (x has child y). However, the reverse is not necessarily true: if $hasChild(x, y)$, it doesn't mean $hasSon(x, y)$ (y could be a daughter). So $hasSon(x, y) \Rightarrow hasChild(x, y)$. Another example: "isMotherOf" is a subproperty of "isParentOf" because if someone is a mother of someone, they are also a parent of that person.
+\end{itemize}
+
+\subsubsection{Functionality Properties}
+\label{subsubsec:functionality-properties}
+
+Properties can have a series of functionality properties that constrain how many values they can relate to.
+
+\begin{itemize}
+    \item \hypertarget{item:functional}{\textbf{Functional property}} (If $P(x, y)$ and $P(x, z)$ then $y = z$):
+    
+    A property is functional if each individual can be related to at most one value through that property.
+    
+    \textit{Example}: "hasMother" is functional because each person has exactly one biological mother. If $hasMother(x, y)$ and $hasMother(x, z)$, then $y = z$ (the same person).
+    
+    \item \hypertarget{item:inverse-functional}{\textbf{Inverse functional property}} (If $P(x, y)$ and $P(z, y)$ then $x = z$):
+    
+    A property is inverse functional if each value can be related to at most one individual through that property.
+    
+    \textit{Example}: "hasSSN" (has Social Security Number) is inverse functional because each SSN belongs to exactly one person. If $hasSSN(x, y)$ and $hasSSN(z, y)$ (both $x$ and $z$ have the same SSN $y$), then $x = z$ (they are the same person).
+    
+    \item \hypertarget{item:keys}{\textbf{Keys}} (If $P(x, y)$ and $P(z, y)$ then $x = z$):
+    
+    Keys are properties that uniquely identify individuals. They have the same constraint as inverse functional properties. Keys are often used in databases and knowledge bases to uniquely identify entities.
+    
+    \textit{Example}: "hasEmail" can be a key if each email address belongs to exactly one person. If $hasEmail(x, y)$ and $hasEmail(z, y)$ (both $x$ and $z$ have the same email $y$), then $x = z$ (they are the same person).
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.9\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance=0.8cm and 1.2cm,
+    titlebox/.style={rectangle, draw, fill=blue!20, text width=5cm, align=center, minimum height=1cm, font=\small\bfseries},
+    defbox/.style={rectangle, draw, fill=green!10, text width=10cm, align=center, minimum height=0.8cm, font=\small},
+    typesbox/.style={rectangle, draw, fill=cyan!20, text width=3cm, align=center, minimum height=1cm, font=\small\bfseries},
+    typescontent/.style={rectangle, draw, fill=yellow!10, text width=3cm, align=left, minimum height=2.5cm, font=\small},
+    attrsbox/.style={rectangle, draw, fill=orange!20, text width=3cm, align=center, minimum height=1cm, font=\small\bfseries},
+    attrscontent/.style={rectangle, draw, fill=pink!10, text width=3cm, align=left, minimum height=3cm, font=\small},
+    relsbox/.style={rectangle, draw, fill=purple!20, text width=3cm, align=center, minimum height=1cm, font=\small\bfseries},
+    relscontent/.style={rectangle, draw, fill=violet!10, text width=3cm, align=left, minimum height=2cm, font=\small},
+    funcbox/.style={rectangle, draw, fill=teal!20, text width=3cm, align=center, minimum height=1cm, font=\small\bfseries},
+    funccontent/.style={rectangle, draw, fill=teal!10, text width=3cm, align=left, minimum height=2.5cm, font=\small},
+    arrow/.style={->, >=stealth, thick}
+]
+
+% Main title and definition combined
+\node[titlebox, text width=10cm, minimum height=1.5cm] (properties) at (0,0) {\textbf{Properties}\\\normalfont Describe how individuals belong to concepts\\based on their relationships through roles};
+\node[typesbox, below=0.8cm of properties, xshift=-5.4cm] (types) {\hyperref[subsec:properties]{Types}};
+\node[typescontent, below=0.6cm of types] (types-list) {
+    \hyperref[item:existential]{\textbf{Existential:}} $\exists R.C$\\[0.2cm]
+    \hyperref[item:universal]{\textbf{Universal:}} $\forall R.C$\\[0.2cm]
+    \hyperref[item:cardinality]{\textbf{Cardinality:}} $= n R.C$\\[0.2cm]
+    \hyperref[item:max-cardinality]{\textbf{Max. Cardinality:}} $\leq n R.C$\\[0.2cm]
+    \hyperref[item:min-cardinality]{\textbf{Min. Cardinality:}} $\geq n R.C$
+};
+\node[relsbox, below=0.8cm of properties, xshift=-1.8cm] (relationships) {\hyperref[subsubsec:relationships-properties]{Relationships}};
+\node[relscontent, below=0.6cm of relationships] (rels-list) {
+    \hyperref[item:inverse]{\textbf{Inverse:}} $P(x, y) \Leftrightarrow Q(y, x)$\\[0.2cm]
+    \hyperref[item:subproperty]{\textbf{Subproperty:}} $P(x, y) \Rightarrow Q(x, y)$
+};
+\node[attrsbox, below=0.8cm of properties, xshift=1.8cm] (attributes) {\hyperref[subsubsec:property-attributes]{Attributes}};
+\node[attrscontent, below=0.6cm of attributes] (attrs-list) {
+    \hyperref[item:reflexive]{\textbf{Reflexive:}} $\forall x \ P(x, x)$\\[0.2cm]
+    \hyperref[item:irreflexive]{\textbf{Irreflexive:}} $\forall x \ \neg P(x, x)$\\[0.2cm]
+    \hyperref[item:symmetry]{\textbf{Symmetry:}} If $P(x, y)$ then $P(y, x)$\\[0.2cm]
+    \hyperref[item:asymmetry]{\textbf{Asymmetry:}} If $P(x, y)$ then $\neg P(y, x)$\\[0.2cm]
+    \hyperref[item:transitivity]{\textbf{Transitivity:}} If $P(x, y)$ and $P(y, z)$ then $P(x, z)$
+};
+\node[funcbox, below=0.8cm of properties, xshift=5.4cm] (functionality) {\hyperref[subsubsec:functionality-properties]{Functionality}};
+\node[funccontent, below=0.6cm of functionality] (func-list) {
+    \hyperref[item:functional]{\textbf{Functional:}} If $P(x, y)$ and $P(x, z)$ then $y = z$\\[0.2cm]
+    \hyperref[item:inverse-functional]{\textbf{Inv. Functional:}} If $P(x, y)$ and $P(z, y)$ then $x = z$\\[0.2cm]
+    \hyperref[item:keys]{\textbf{Keys:}} If $P(x, y)$ and $P(z, y)$ then $x = z$
+};
+
+\draw[arrow] (properties) -- (types);
+\draw[arrow] (types) -- (types-list);
+\draw[arrow] (properties) -- (relationships);
+\draw[arrow] (relationships) -- (rels-list);
+\draw[arrow] (properties) -- (attributes);
+\draw[arrow] (attributes) -- (attrs-list);
+\draw[arrow] (properties) -- (functionality);
+\draw[arrow] (functionality) -- (func-list);
+
+\end{tikzpicture}
+}
+\caption{Concept map of Properties}
+\label{fig:properties-conceptmap}
+\end{figure}
+
+\subsection{Reasoning}
+\label{subsec:reasoning}
+
+From a knowledge base, reasoning (inference) can be performed. Different types of reasoning tasks allow us to extract information and answer questions about the domain.
+
+\begin{table}[H]
+\centering
+\caption{Types of Reasoning}
+\label{tab:reasoning}
+\begin{tabular}{p{5cm}p{9cm}}
+\toprule
+\textbf{Type of Reasoning} & \textbf{Description} \\
+\midrule
+\textbf{Concept Satisfaction} & From $\Sigma$ it is not deduced that $C \equiv \bot$ \\
+\midrule
+\textbf{Subsumption} & $\Sigma \Rightarrow C \sqsubseteq D$ \\
+\midrule
+\textbf{Instantiation} & $\Sigma \Rightarrow a \in C$ \\
+\midrule
+\textbf{Information Retrieval} & Given a concept $C$, obtain individuals $a$ such that $a \in C$ \\
+\midrule
+\textbf{Comprehension} & Given an individual $a$, obtain the most specific concept $C$ such that $a \in C$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Explanation of each type}:
+
+\begin{itemize}
+    \item \textbf{Concept Satisfaction}: Checks if a given concept $C$ is satisfiable within the knowledge base $\Sigma$, meaning it's not equivalent to the bottom concept ($\bot$), which represents an inconsistent or empty concept. If a concept is unsatisfiable, it means there can be no individuals that belong to it.
+    
+    \textit{Example}: Check if the concept $Student \sqcap \neg Person$ is satisfiable. If the knowledge base states that all students are persons, then this concept is unsatisfiable (equivalent to $\bot$).
+    
+    \item \textbf{Subsumption}: Determines if concept $C$ is subsumed by concept $D$ within the knowledge base $\Sigma$, meaning all instances of $C$ are also instances of $D$. This checks if $C$ is a subclass of $D$.
+    
+    \textit{Example}: Check if $Student \sqsubseteq Person$ holds in the knowledge base. If true, it means every student is also a person.
+    
+    \item \textbf{Instantiation}: Checks if an individual $a$ is an instance of concept $C$ according to the knowledge base $\Sigma$. This verifies whether a specific individual belongs to a concept.
+    
+    \textit{Example}: Check if $Student(john)$ holds, i.e., whether John is a student according to the knowledge base.
+    
+    \item \textbf{Information Retrieval}: Given a concept $C$, retrieves all individuals $a$ such that $a \in C$. This is a query that finds all instances of a concept.
+    
+    \textit{Example}: Query "find all students" would return all individuals that belong to the $Student$ concept, such as $\{john, alice, bob\}$.
+    
+    \item \textbf{Comprehension}: Given an individual $a$, finds the most specific concept(s) $C$ such that $a \in C$. This determines what concepts an individual belongs to, focusing on the most specific ones.
+    
+    \textit{Example}: Given individual $john$, find the most specific concepts he belongs to. If John is a graduate student, the result might be $\{GraduateStudent, Student, Person\}$, but the most specific would be $GraduateStudent$.
+\end{itemize}
+
+\subsection{Description Logic ALC - Summary}
+\label{subsec:alc-conceptmap}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.9\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance=1.2cm and 1.5cm,
+    box/.style={rectangle, draw, fill=blue!10, text width=4cm, align=center, minimum height=1cm, font=\small},
+    titlebox/.style={rectangle, draw, fill=purple!30, text width=5cm, align=center, minimum height=1.2cm, font=\bfseries},
+    defbox/.style={rectangle, draw, fill=green!10, text width=4.5cm, align=center, minimum height=0.8cm, font=\small},
+    examplebox/.style={rectangle, draw, fill=yellow!10, text width=4.5cm, align=center, minimum height=0.8cm, font=\small},
+    arrow/.style={->, >=stealth, thick}
+]
+
+% Main title
+\node[titlebox] (main) at (0,0) {\Large Description Logic ALC};
+
+% Left branch: Concepts
+\node[box, fill=cyan!20, below left=of main, xshift=-1cm, yshift=-0.5cm] (concepts) {\textbf{Concepts}\\Classes of categories\\of individuals};
+\node[examplebox, below=0.6cm of concepts] (concepts-ex) {\textit{Examples:}\\Student, Teacher, Person};
+
+% Middle branch: Properties/Roles
+\node[box, fill=orange!20, below=of main, yshift=-0.5cm] (properties) {\textbf{Properties / Roles}\\Relationships\\between concepts};
+\node[examplebox, below=0.6cm of properties] (properties-ex) {\textit{Examples:}\\hasChild, teaches};
+
+% Right branch: Individuals
+\node[box, fill=purple!20, below right=of main, xshift=1cm, yshift=-0.5cm] (individuals) {\textbf{Individuals}\\Elements of Domain};
+\node[examplebox, below=0.6cm of individuals] (individuals-ex) {\textit{Examples:}\\carlos, juan, maria};
+
+% Arrows from main
+\draw[arrow] (main) -- (concepts);
+\draw[arrow] (main) -- (properties);
+\draw[arrow] (main) -- (individuals);
+
+% Arrows to examples
+\draw[arrow] (concepts) -- (concepts-ex);
+\draw[arrow] (properties) -- (properties-ex);
+\draw[arrow] (individuals) -- (individuals-ex);
+
+\end{tikzpicture}
+}
+\caption{Summary concept map of Description Logic ALC}
+\label{fig:alc-summary-conceptmap}
+\end{figure}

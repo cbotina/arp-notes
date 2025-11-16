@@ -1,0 +1,39 @@
+\section{Summary - Lecture 003}
+\begin{figure}[H]
+\centering
+\resizebox{1\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance=1.3cm and 1.8cm,
+    box/.style={rectangle, draw, fill=blue!10, text width=3.8cm, align=center, minimum height=1cm, font=\small},
+    titlebox/.style={rectangle, draw, fill=blue!30, text width=5cm, align=center, minimum height=1.2cm, font=\bfseries},
+    smallbox/.style={rectangle, draw, fill=green!10, text width=3.2cm, align=left, minimum height=0.8cm, font=\scriptsize},
+    arrow/.style={->, >=stealth, thick}
+]
+
+% Main title (center)
+\node[titlebox] (main) at (0,0) {\Large Types of Logic};
+
+% Positioning around center
+\node[box, fill=yellow!20, above=1cm of main, xshift=-5cm] (fuzzy) {\hyperref[sec:multivalued-fuzzy-logic]{\textbf{Multivalued \& Fuzzy Logic}}\\Handling uncertainty\\[0.2cm]Example: $\mu_A(x) \in [0,1]$};
+
+\node[box, fill=red!20, above=2.5cm of main] (prop) {\hyperref[sec:propositional-logic]{\textbf{Propositional Logic}}\\Basic logic with propositions\\[0.2cm]Example: $p \land q \rightarrow r$};
+
+\node[box, fill=orange!20, above=1cm of main, xshift=5cm] (fol) {\hyperref[sec:first-order-logic]{\textbf{First-Order Logic}}\\Predicates \& quantifiers\\[0.2cm]Example: $\forall x \ P(x) \rightarrow Q(x)$};
+
+\node[box, fill=purple!20, below=1cm of main, xshift=-4cm] (alc) {\hyperref[sec:description-logic-alc]{\textbf{Description Logic ALC}}\\Knowledge representation\\[0.2cm]Example: $\exists R.C \sqcap \forall S.D$};
+
+\node[box, fill=cyan!20, below=1cm of main, xshift=4cm] (hol) {\hyperref[sec:higher-order-logic]{\textbf{Higher-Order Logic}}\\Extended expressive power\\[0.2cm]Example: $\forall P \ \exists x \ P(x)$};
+
+% Arrows from main
+\draw[arrow] (main) -- (prop);
+\draw[arrow] (main) -- (fol);
+\draw[arrow] (main) -- (alc);
+\draw[arrow] (main) -- (hol);
+\draw[arrow] (main) -- (fuzzy);
+
+\end{tikzpicture}
+}
+\caption{Conceptual map of the Reasoning and Planning course - Lecture 003}
+\end{figure}
+
+

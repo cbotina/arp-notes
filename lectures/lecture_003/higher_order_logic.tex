@@ -1,0 +1,151 @@
+\section{Higher-Order Logic}
+\label{sec:higher-order-logic}
+
+Higher-order logic (or second-order logic) is an extension of first-order logic that adds variables for properties, functions, and relations, along with quantifiers that operate over those variables. This expands the expressive power of the language without having to add new logical symbols.
+
+The need for second-order logic is reflected in Giuseppe Peano's induction axiom for arithmetic, which requires quantifiers that can range not only over concrete elements (like numbers), but also over relations and functions (like properties of numbers).
+
+\textbf{Key distinction}:
+\begin{itemize}
+    \item \textbf{First-order logic}: Quantifiers only apply to objects. Example: "All students are smart" — $\forall x (Student(x) \rightarrow Smart(x))$
+    
+    \item \textbf{Higher-order logic}: Quantifiers can also apply to predicates/properties. Example: "All properties that hold for 0 and are preserved by succession hold for all numbers" (mathematical induction).
+\end{itemize}
+
+Second-order logic has greater expressive power than first-order logic, allowing the formalization of complex mathematical systems that cannot be captured in first-order logic.
+
+\textbf{Types of Second-Order Logic}:
+
+\begin{itemize}
+    \item \textbf{Monadic Second-Order Logic (MSOL)}: Only allows quantification over unary predicates (sets).
+    
+    \textit{Example}: "There exists a group of people who all speak Spanish" — $\exists Group \forall p (p \in Group \rightarrow SpeaksSpanish(p))$. Here, $Group$ is a variable representing a set of people.
+    
+    \item \textbf{Full Second-Order Logic (FSOL)}: Allows quantification over predicates of any arity (unary, binary, etc.) and functions.
+    
+    \textit{Example}: "There exists a relation that is symmetric" — $\exists R \forall x \forall y (R(x,y) \rightarrow R(y,x))$. Here, $R$ is a variable representing a binary relation, like "is friend of".
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{First-Order vs Second-Order Logic}
+\label{tab:fol-vs-sol}
+\begin{tabular}{p{4.5cm}p{5cm}p{5cm}}
+\toprule
+\textbf{Aspect} & \textbf{First-Order Logic} & \textbf{Second-Order Logic} \\
+\midrule
+\textbf{Quantifiers range over} & Objects/individuals & Objects and predicates/relations \\
+\midrule
+\textbf{Expressive power} & Limited & Greater \\
+\midrule
+\textbf{Completeness} & Complete & Incomplete \\
+\midrule
+\textbf{Example} & $\forall x P(x)$ (all objects satisfy $P$) & $\forall P \forall x P(x)$ (all properties hold for all objects) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Syntax of Second-Order Logic}
+\label{subsec:sol-syntax}
+
+Given a vocabulary $\mathcal{L}$, second-order logic (SOL) over $\mathcal{L}$ is defined as an extension of first-order logic that includes the following rules:
+
+\textbf{Formation Rules}:
+
+\begin{itemize}
+    \item \textbf{Rule 1}: If $t_1, \ldots, t_k$ are $\mathcal{L}$-terms and $X$ is a second-order variable of arity $k$ (that is, a relation with $k \geq 1$ arguments), then $X(t_1, \ldots, t_k)$ is a formula in SOL.
+    
+    \textit{Explanation}: We can apply second-order variables (which represent predicates/relations) to first-order terms.
+    
+    \textit{Example}: If $X$ is a second-order variable of arity 2 (binary relation) and $john$, $mary$ are constants, then $X(john, mary)$ is a valid SOL formula. This could represent "there exists some relation $X$ between John and Mary" (e.g., $X$ could be "knows", "likes", etc.).
+    
+    \item \textbf{Rule 2}: If $\varphi$ is a formula in SOL and $X$ is a second-order variable of arity $k$, then $\exists X \varphi$ and $\forall X \varphi$ are formulas in SOL.
+    
+    \textit{Explanation}: We can quantify over second-order variables (predicates/relations).
+    
+    \textit{Examples}:
+    \begin{itemize}
+        \item $\exists X \forall x (Student(x) \rightarrow X(x))$ — "There exists a property $X$ that all students have." ($X$ could be "intelligent", "young", etc.)
+        
+        \item $\forall R \forall x \forall y (R(x,y) \rightarrow R(y,x))$ — "For all binary relations $R$, if $R(x,y)$ holds, then $R(y,x)$ holds." This describes only symmetric relations.
+        
+        \item $\exists P (P(alice) \land \neg P(bob))$ — "There exists a property $P$ that Alice has but Bob doesn't."
+    \end{itemize}
+\end{itemize}
+
+\textbf{Note}: The key difference from first-order logic is that in SOL, variables can represent not just objects (like people, numbers), but also predicates and relations (like "is tall", "is greater than", "knows"). This allows us to make statements about properties and relations themselves, not just about individual objects.
+
+\subsection{Semantics of Second-Order Logic}
+\label{subsec:sol-semantics}
+
+Given a structure $\mathfrak{A}$ with domain $A$, an assignment $\sigma$ is a function that assigns:
+
+\begin{itemize}
+    \item \textbf{A value in $A$ to each first-order variable $x$}: $\sigma(x) \in A$
+    
+    This is the same as in first-order logic: each variable representing an object gets assigned a concrete object from the domain.
+    
+    \textit{Example}: If $A = \{john, mary, alice\}$ (set of people), then $\sigma(x) = john$ assigns the person John to variable $x$.
+    
+    \item \textbf{A subset of $A^k$ to each second-order variable $X$ with $k$ arguments}: $\sigma(X) \subseteq A^k$
+    
+    Each second-order variable (representing a predicate or relation) gets assigned a set of tuples. For a unary predicate ($k=1$), this is a subset of $A$. For a binary relation ($k=2$), this is a subset of $A \times A$ (pairs of elements).
+    
+    \textit{Examples}:
+    \begin{itemize}
+        \item If $P$ is a unary second-order variable (property), then $\sigma(P) = \{john, alice\} \subseteq A$ means that the property $P$ holds for John and Alice, but not for Mary.
+        
+        For instance, if $P$ represents "speaks Spanish", this assignment says John and Alice speak Spanish, but Mary doesn't.
+        
+        \item If $R$ is a binary second-order variable (relation with 2 arguments), then $\sigma(R) = \{(john, mary), (alice, john)\} \subseteq A \times A$ means that $R$ relates John to Mary and Alice to John.
+        
+        For instance, if $R$ represents "knows", this assignment says John knows Mary, and Alice knows John.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Key insight}: In first-order logic, we only assign concrete objects to variables. In second-order logic, we also assign sets of tuples to second-order variables, which represent the extensions of predicates and relations. This allows us to quantify over all possible predicates and relations, giving SOL its greater expressive power.
+
+\subsection{Additional Semantic Cases for SOL}
+\label{subsec:sol-additional-cases}
+
+The definition of SOL includes three additional cases for evaluating formulas with second-order variables:
+
+\textbf{For a second-order variable $X$ with arity $k$}:
+
+\begin{enumerate}
+    \item \textbf{Application of second-order variable}:
+    \[
+    (\mathfrak{A}, \sigma) \models X(t_1, \ldots, t_k) \text{ if and only if } (\sigma(t_1), \ldots, \sigma(t_k)) \in \sigma(X)
+    \]
+    
+    \textit{Meaning}: The formula $X(t_1, \ldots, t_k)$ is satisfied if the tuple of values assigned to the terms $(t_1, \ldots, t_k)$ belongs to the set assigned to the second-order variable $X$.
+    
+    \textit{Example}: Suppose $X$ is a binary relation, $\sigma(X) = \{(john, mary), (alice, bob)\}$, and $\sigma(t_1) = john$, $\sigma(t_2) = mary$. Then $(\mathfrak{A}, \sigma) \models X(t_1, t_2)$ because $(john, mary) \in \sigma(X)$.
+    
+    If we think of $X$ as "knows", this says "John knows Mary" is true in this interpretation.
+    
+    \item \textbf{Existential quantification over second-order variables}:
+    \[
+    (\mathfrak{A}, \sigma) \models \exists X \varphi \text{ if and only if there exists } S \subseteq A^k \text{ such that } (\mathfrak{A}, \sigma[X/S]) \models \varphi
+    \]
+    
+    \textit{Meaning}: The formula $\exists X \varphi$ is satisfied if there exists some subset $S$ of $A^k$ such that when we assign $S$ to $X$, the formula $\varphi$ becomes true. Here, $\sigma[X/S]$ denotes the assignment that is identical to $\sigma$ except that it assigns $S$ to $X$.
+    
+    \textit{Example}: Consider $\exists P \forall x (Student(x) \rightarrow P(x))$ — "There exists a property $P$ that all students have."
+    
+    This is satisfied if we can find some set $S \subseteq A$ (e.g., $S = \{john, mary, alice, bob\}$ representing "all people") such that when we assign $P$ to this set, every student is in that set.
+    
+    \item \textbf{Universal quantification over second-order variables}:
+    \[
+    (\mathfrak{A}, \sigma) \models \forall X \varphi \text{ if and only if for every } S \subseteq A^k, (\mathfrak{A}, \sigma[X/S]) \models \varphi
+    \]
+    
+    \textit{Meaning}: The formula $\forall X \varphi$ is satisfied if for every possible subset $S$ of $A^k$, when we assign $S$ to $X$, the formula $\varphi$ is true.
+    
+    \textit{Example}: Consider $\forall P (P(john) \rightarrow P(mary))$ — "For all properties, if John has the property, then Mary also has it."
+    
+    This is satisfied if, no matter which property we choose (tall, smart, Spanish-speaking, etc.), whenever John has it, Mary has it too. This would only be true if Mary has all the properties that John has.
+\end{enumerate}
+
+\textbf{Summary}: These three cases extend the standard first-order semantics to handle second-order variables. The key difference is that quantifiers in SOL range over sets (subsets of $A^k$), not just individual elements, allowing us to express statements about all possible properties and relations.
+

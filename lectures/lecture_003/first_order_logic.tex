@@ -1,0 +1,128 @@
+\section{First-Order Logic}
+\label{sec:first-order-logic}
+
+First-order logic (also called predicate logic) extends propositional logic by allowing quantification over individuals and the use of predicates, functions, and variables. It's more expressive than propositional logic and can represent relationships between objects and properties.
+
+\textbf{Key components}:
+\begin{itemize}
+    \item \textbf{Constants}: Specific individuals (e.g., $john$, $mary$)
+    \item \textbf{Variables}: Placeholders for individuals (e.g., $x$, $y$, $z$)
+    \item \textbf{Predicates}: Properties or relations (e.g., $Student(x)$, $Loves(x,y)$)
+    \item \textbf{Functions}: Map individuals to individuals (e.g., $mother(x)$)
+    \item \textbf{Quantifiers}:
+    \begin{itemize}
+        \item $\forall x$ (universal): "For all $x$"
+        \item $\exists x$ (existential): "There exists an $x$"
+    \end{itemize}
+\end{itemize}
+
+\textbf{Example}: "All humans are mortal" can be expressed as:
+$$\forall x \ (Human(x) \rightarrow Mortal(x))$$
+
+This reads: "For all $x$, if $x$ is a human, then $x$ is mortal."
+
+Another example: "Some students study" can be expressed as:
+$$\exists x \ (Student(x) \land Studies(x))$$
+
+This reads: "There exists an $x$ such that $x$ is a student and $x$ studies."
+
+\textbf{More examples}:
+
+"Every mother loves her children" (using a binary relation):
+$$\forall x \forall y \ (Mother(x,y) \rightarrow Loves(x,y))$$
+
+This reads: "For all $x$ and $y$, if $x$ is the mother of $y$, then $x$ loves $y$."
+
+"All students have at least one teacher":
+$$\forall x \ (Student(x) \rightarrow \exists y \ (Teacher(y) \land Teaches(y,x)))$$
+
+This reads: "For all $x$, if $x$ is a student, then there exists a $y$ such that $y$ is a teacher and $y$ teaches $x$."
+
+"Nobody loves everyone" (combining negation and quantifiers):
+$$\neg \exists x \forall y \ Loves(x,y)$$
+
+This reads: "There does not exist an $x$ such that for all $y$, $x$ loves $y$." Or equivalently: "For all $x$, there exists a $y$ such that $x$ does not love $y$."
+
+"Everyone has a mother" (using a function):
+$$\forall x \exists y \ (Mother(y,x))$$
+
+This reads: "For all $x$, there exists a $y$ such that $y$ is the mother of $x$." Alternatively, using a function: $\forall x \ (Mother(mother(x),x))$ where $mother(x)$ is a function that returns the mother of $x$.
+
+"All teachers who teach students are professors":
+$$\forall x \ (Teacher(x) \land \exists y \ (Student(y) \land Teaches(x,y)) \rightarrow Professor(x))$$
+
+This reads: "For all $x$, if $x$ is a teacher and there exists a $y$ such that $y$ is a student and $x$ teaches $y$, then $x$ is a professor."
+
+First-order logic is the foundation for many advanced logics, including Description Logic ALC, which is a specialized fragment of first-order logic designed for knowledge representation.
+
+\subsection{First-Order Logic - Detailed Concept Map}
+\label{subsec:first-order-logic-conceptmap}
+
+\begin{figure}[H]
+\centering
+\resizebox{1\textwidth}{!}{
+\begin{tikzpicture}[
+    node distance=1.3cm and 1.8cm,
+    box/.style={rectangle, draw, fill=blue!10, text width=3.8cm, align=center, minimum height=1cm, font=\small},
+    titlebox/.style={rectangle, draw, fill=orange!30, text width=5cm, align=center, minimum height=1.2cm, font=\bfseries},
+    smallbox/.style={rectangle, draw, fill=green!10, text width=3.2cm, align=left, minimum height=0.8cm, font=\scriptsize},
+    arrow/.style={->, >=stealth, thick}
+]
+
+% Main title
+\node[titlebox] (main) at (0,0) {\Large First-Order Logic};
+
+% Row 1: Components
+\node[box, fill=cyan!20, below left=of main, xshift=-5cm, yshift=-0.5cm] (components) {\hyperref[sec:first-order-logic]{\textbf{Key Components}}\\Building blocks of FOL};
+\node[smallbox, below=0.7cm of components, xshift=-2cm] (comp-1) {\hyperref[sec:first-order-logic]{\textbf{Constants:}} Specific\\individuals ($john$)};
+\node[smallbox, below=0.7cm of components, xshift=2cm] (comp-2) {\hyperref[sec:first-order-logic]{\textbf{Variables:}} Placeholders\\($x, y, z$)};
+\node[smallbox, below=2.5cm of components] (comp-3) {\hyperref[sec:first-order-logic]{\textbf{Functions:}} Map individuals\\($mother(x)$)};
+
+% Row 1: Predicates
+\node[box, fill=purple!20, below right=of main, xshift=5cm, yshift=-0.5cm] (predicates) {\hyperref[sec:first-order-logic]{\textbf{Predicates}}\\Properties \& relations};
+\node[smallbox, below=0.7cm of predicates, xshift=-1.8cm] (pred-1) {\hyperref[sec:first-order-logic]{\textbf{Unary:}} Properties\\$Student(x)$};
+\node[smallbox, below=0.7cm of predicates, xshift=1.8cm] (pred-2) {\hyperref[sec:first-order-logic]{\textbf{Binary:}} Relations\\$Loves(x,y)$};
+
+% Row 2: Quantifiers
+\node[box, fill=yellow!20, below=6cm of main, xshift=-6cm] (quant) {\hyperref[sec:first-order-logic]{\textbf{Quantifiers}}\\Range over individuals};
+\node[smallbox, below=0.7cm of quant, xshift=-2cm] (quant-1) {\hyperref[sec:first-order-logic]{\textbf{Universal:}} $\forall x$\\For all};
+\node[smallbox, below=0.7cm of quant, xshift=2cm] (quant-2) {\hyperref[sec:first-order-logic]{\textbf{Existential:}} $\exists x$\\There exists};
+
+% Row 2: Expressive Power
+\node[box, fill=green!20, below=2.5cm of main] (power) {\hyperref[sec:first-order-logic]{\textbf{Expressive Power}}\\Beyond propositional};
+\node[smallbox, below=0.7cm of power, xshift=-2cm] (pow-1) {\hyperref[sec:first-order-logic]{\textbf{Objects:}} Represent\\individuals};
+\node[smallbox, below=0.7cm of power, xshift=2cm] (pow-2) {\hyperref[sec:first-order-logic]{\textbf{Relations:}} Between\\objects};
+
+% Row 2: Examples
+\node[box, fill=pink!20, below=6cm of main, xshift=6cm] (examples) {\hyperref[sec:first-order-logic]{\textbf{Examples}}\\Real-world statements};
+\node[smallbox, below=0.7cm of examples, xshift=-2.5cm] (ex-1) {\hyperref[sec:first-order-logic]{\textbf{Simple:}} All humans mortal\\$\forall x (Human(x) \rightarrow Mortal(x))$};
+\node[smallbox, below=0.7cm of examples, xshift=2.5cm] (ex-2) {\hyperref[sec:first-order-logic]{\textbf{Complex:}} Students have teachers\\$\forall x (Student(x) \rightarrow \exists y Teaches(y,x))$};
+\node[smallbox, below=2.5cm of examples] (ex-3) {\hyperref[sec:first-order-logic]{\textbf{Nested:}} Nobody loves everyone\\$\neg \exists x \forall y \ Loves(x,y)$};
+
+% Arrows from main
+\draw[arrow] (main) -- (components);
+\draw[arrow] (main) -- (predicates);
+\draw[arrow] (main) -- (quant);
+\draw[arrow] (main) -- (power);
+\draw[arrow] (main) -- (examples);
+
+% Arrows to sub-boxes
+\draw[arrow] (components) -- (comp-1);
+\draw[arrow] (components) -- (comp-2);
+\draw[arrow] (components) -- (comp-3);
+\draw[arrow] (predicates) -- (pred-1);
+\draw[arrow] (predicates) -- (pred-2);
+\draw[arrow] (quant) -- (quant-1);
+\draw[arrow] (quant) -- (quant-2);
+\draw[arrow] (power) -- (pow-1);
+\draw[arrow] (power) -- (pow-2);
+\draw[arrow] (examples) -- (ex-1);
+\draw[arrow] (examples) -- (ex-2);
+\draw[arrow] (examples) -- (ex-3);
+
+\end{tikzpicture}
+}
+\caption{Detailed conceptual map of First-Order Logic}
+\label{fig:first-order-logic-conceptmap}
+\end{figure}
+
