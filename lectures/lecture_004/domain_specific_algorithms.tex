@@ -1,0 +1,31 @@
+\section{Domain-Specific Algorithms}
+\label{sec:domain-specific-algorithms}
+
+\textbf{Domain-specific algorithms} are problem-solving techniques where the agent designer encodes a known method for solving problems in a particular domain into a specialized algorithm.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/domainhanoi.png}
+    \caption{Example of a domain-specific algorithm: Recursive solution for the Towers of Hanoi problem. This algorithm is specifically designed for this puzzle and cannot be directly applied to other domains.}
+    \label{fig:hanoi-algorithm}
+\end{figure}
+
+\subsection{How They Work}
+\label{subsec:domain-algorithms-operation}
+
+\begin{itemize}
+    \item The designer identifies a solution method for a specific problem domain.
+    \item This method is encoded into a specialized algorithm that can solve any problem instance within that domain.
+    \item Flexibility can be improved by using \textbf{parameters} that configure the problem, allowing the same code to handle different problem instances within the domain.
+\end{itemize}
+
+\subsection{Limitations}
+\label{subsec:domain-algorithms-limitations}
+
+The main drawbacks of this approach are:
+
+\begin{itemize}
+    \item \textbf{Exhaustive anticipation required}: The designer must anticipate all possible scenarios the agent might encounter. In real-world environments, this is often too complex to achieve.
+    
+    \item \textbf{Domain restriction}: The algorithm only works for the specific domain it was designed for. It cannot be applied to problems outside that domain without significant modification.
+\end{itemize}

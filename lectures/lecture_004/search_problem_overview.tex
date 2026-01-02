@@ -1,0 +1,27 @@
+\section{Overview of a Search Problem}
+\label{sec:search-problem-overview}
+
+Search problems can be classified according to two main criteria: the use of heuristics and the execution timing. These classifications help us understand the characteristics and behavior of different search algorithms.
+
+\subsection{Uninformed vs. Informed Search}
+\label{subsec:uninformed-informed}
+
+The first classification depends on whether the algorithm uses a \textbf{heuristic function} (a function that estimates the cost or distance to the goal):
+
+\begin{itemize}
+    \item \textbf{Uninformed search}: Algorithms that do not use any heuristic information. They explore the search space systematically without prior knowledge about which states are more promising. Each state is evaluated equally, without knowing if it brings us closer to the goal.
+    
+    \item \textbf{Informed search}: Algorithms that employ a heuristic function to guide the search process. The heuristic provides an estimate of how close a state is to the goal, allowing the algorithm to prioritize more promising paths and typically find solutions more efficiently.
+\end{itemize}
+
+\subsection{Offline vs. Online Search}
+\label{subsec:offline-online}
+
+The second classification relates to when the agent executes actions relative to the search process:
+
+\begin{itemize}
+    \item \textbf{Offline search}: The agent first completes the entire search process to find a complete solution plan (from initial state to goal), and only then begins executing the actions. This approach is typical of deliberative agents that have sufficient time to plan before acting.
+    
+    \item \textbf{Online search}: The agent interleaves search and execution—it searches for a short-term plan, executes some actions, then searches again from the new state. This approach is used by reactive agents operating under time constraints or in dynamic environments. Typically employs local search algorithms that find partial solutions incrementally.
+\end{itemize}
+

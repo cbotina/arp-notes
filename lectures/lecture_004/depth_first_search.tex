@@ -1,0 +1,89 @@
+\section{Depth-First Search}
+\label{sec:depth-first-search}
+
+\textbf{Depth-First Search} (DFS) is another uninformed search strategy (without additional information). Unlike breadth-first search, DFS attempts to develop a path of indeterminate length, trying to reach deep goals (those that have a long path to reach them) by developing the fewest possible branches.
+
+In general, DFS works well when combined with additional information, but it can solve problems in the same way as a breadth-first algorithm.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/dfs_tree.png}
+    \caption{Example of how the search tree is generated with the depth-first search algorithm. The red path highlights the exploration sequence, showing how DFS goes deep before backtracking.}
+    \label{fig:dfs-tree}
+\end{figure}
+
+In this strategy, the tree is expanded from ``left to right,'' so the deepest nodes are expanded first. If a node without successors is reached, the algorithm backtracks and expands the next deepest node.
+
+As a result, the method explores a ``current path'' and does not always find the node at minimum depth. The general algorithm is adapted with the following considerations:
+
+\begin{itemize}
+    \item \textbf{Adding successors}: New successors are added to the \textit{beginning} of the open list.
+    
+    \item \textbf{Stack behavior}: The open list functions as a stack (inserting at the beginning and extracting from the beginning), so we always extract the deepest node. By storing all successors of an expanded node in the open list, we allow ``backtracking.''
+    
+    \item \textbf{Visited nodes control}: We only process a node from the stack if it has not been visited yet.
+\end{itemize}
+
+\subsection{Properties}
+\label{subsec:dfs-properties}
+
+The analysis of this algorithm shows that it is \textbf{complete} (if and only if we guarantee the elimination of repeated states within the same branch), but it is \textbf{not optimal} (for cost-one operators), since it does not guarantee that it will always find the solution at the minimum depth.
+
+DFS has the following characteristics:
+\begin{itemize}
+    \item \textbf{Completeness}: Complete only if repeated states within the same branch are eliminated. Without this control, DFS can get stuck in infinite loops in graphs with cycles.
+    
+    \item \textbf{Optimality}: Not optimal—it may find a solution, but not necessarily the shortest one, as it explores deep paths first rather than systematically exploring by depth level.
+    
+    \item \textbf{Time complexity}: $O(b^m)$ in the worst case, where $b$ is the branching factor and $m$ is the maximum depth of the search tree. This can be much worse than BFS if the solution is shallow.
+    
+    \item \textbf{Space complexity}: $O(bm)$—much better than BFS, as it only needs to store the current path from root to leaf, not all nodes at a given depth level.
+\end{itemize}
+
+\subsection{Example}
+\label{subsec:dfs-example}
+
+Let us illustrate DFS with the same example graph used for BFS. Consider the weighted graph shown in Figure~\ref{fig:dfs-search-example}, where we want to find a path from the initial state $S$ to one of the goal states ($G1$ or $G2$).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/search_example.png}
+    \caption{Example search problem: finding a path from initial state $S$ to goal states $G1$ or $G2$. Edge weights represent the cost of transitions. \textbf{Note:} In this DFS example, all edge costs are treated as 1 (uniform cost), and nodes are generated in inverse alphabetical order for convention.}
+    \label{fig:dfs-search-example}
+\end{figure}
+
+Table~\ref{tab:dfs-expansion} shows the step-by-step execution of DFS on this problem. Notice how DFS explores deep paths first, going as far as possible before backtracking.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{3cm}|p{4cm}|>{\raggedright\arraybackslash}p{7.5cm}|}
+        \hline
+        \textbf{Expanded} & \textbf{Generates} & \textbf{Open} \\
+        \hline
+        $S$ & $C, B$ & $B (SB), C (SC)$ \\
+        \hline
+        $B (SB)$ & $E, A$ & $A (SBA), E (SBE), C (SC)$ \\
+        \hline
+        $A (SBA)$ & $\cancel{C}$ & $E (SBE), C (SC)$ \\
+        \hline
+        $E (SBE)$ & $F, D$ & $D (SBED), F (SBEF), C (SC)$ \\
+        \hline
+        $D (SBED)$ & $G2, \cancel{F}$ & $G2 (SBEDG2), F (SBEF), C (SC)$ \\
+        \hline
+        $G2 (SBEDG2)$ & \textbf{FIN} & --- \\
+        \hline
+    \end{tabular}
+    \caption{DFS expansion process for the example problem. The path notation (e.g., $SB$) indicates the path from $S$ to the node. Nodes with strikethrough ($\cancel{X}$) represent states that would be generated but are skipped because they have already been visited or are in the open list, preventing cycles and redundant exploration. \textbf{Note:} Generated nodes are listed in inverse alphabetical order for convention. All edge costs are treated as 1 in this DFS example.}
+    \label{tab:dfs-expansion}
+\end{table}
+
+\textbf{Solution summary:}
+\begin{itemize}
+    \item \textbf{Solution:} $SB, BE, ED, DG2$
+    \item \textbf{Length:} 4
+    \item \textbf{Expanded:} 5 nodes
+    \item \textbf{Generated:} 7 nodes (excluding repeated states)
+    \item \textbf{Iterations:} 6
+\end{itemize}
+
+In this example, DFS finds the goal $G2$ through the path $S \rightarrow B \rightarrow E \rightarrow D \rightarrow G2$ (4 steps). Notice how DFS explores deep into the tree (following the path $S \rightarrow B \rightarrow E \rightarrow D$) before finding the goal, unlike BFS which would have found a shorter path. This demonstrates that DFS is not optimal—it finds a solution, but not necessarily the shortest one.

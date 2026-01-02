@@ -1,0 +1,43 @@
+\section{Search-Based Agents}
+\label{sec:search-based-agents}
+
+\textbf{Search-based agents} are intelligent agents that use search algorithms to find sequences of actions that achieve their goals. These agents operate by maintaining an internal model of their environment and systematically exploring possible action sequences.
+
+\subsection{Key Characteristics}
+\label{subsec:search-agents-characteristics}
+
+Search-based agents are characterized by two fundamental properties:
+
+\begin{itemize}
+    \item \textbf{Symbolic environment model}: They maintain a symbolic representation of the environment that captures only the information relevant to the problem at hand. This model defines the parameters that distinguish one state from another, allowing the agent to reason about different configurations of the environment.
+    
+    \item \textbf{Goal-oriented state modification}: They aim to modify the environment state according to their objectives by applying actions that transform the current state into a goal state—one that satisfies the agent's objectives.
+\end{itemize}
+
+\subsection{How They Work}
+\label{subsec:search-agents-operation}
+
+To achieve their goals, search-based agents follow a systematic approach:
+
+\begin{enumerate}
+    \item \textbf{Action anticipation}: Using their environment model, they predict the effects that their actions would have on the world. This allows them to simulate different action sequences without actually executing them.
+    
+    \item \textbf{Plan generation}: Through a search process, they explore possible sequences of actions that lead from the current state to a goal state. The search algorithm systematically evaluates different paths through the state space.
+    
+    \item \textbf{Plan execution}: Once a valid sequence is found, the agent executes the plan to transform the environment from its current state to the desired goal state.
+\end{enumerate}
+
+The search process is central to these agents—it is the mechanism that allows them to find the appropriate sequence of actions to achieve their objectives.
+
+\subsection{Deliberative vs. Reactive Search-Based Agents}
+\label{subsec:deliberative-reactive-search}
+
+The timing of search and execution differs based on the agent type:
+
+\begin{itemize}
+    \item \textbf{Deliberative agents}: Complete the entire search process \textit{before} executing any actions. Once a solution plan is found, execution begins. This approach minimizes the risk of costly mistakes.
+    
+    \item \textbf{Reactive agents}: Interleave search and execution—they search while executing actions. This carries the risk of making mistakes that may require undoing costly actions.
+\end{itemize}
+
+\textbf{Note}: Both deliberative and reactive agents can use either \textbf{informed} or \textbf{uninformed} search algorithms.

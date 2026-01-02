@@ -1,0 +1,106 @@
+\section{Breadth-First Search}
+\label{sec:breadth-first-search}
+
+\textbf{Breadth-First Search} (BFS) is a search strategy that generates the search tree level by level, expanding all nodes at depth level $i$ before expanding nodes at level $i+1$.
+
+BFS considers, first, all states that are reachable in paths of length 1 (i.e., paths requiring only one action), then those of length 2 (paths requiring two actions), and so on. In this way, it finds the goal state at the minimum depth.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/bfs_schema.png}
+    \caption{Breadth-first search exploration schema. The algorithm explores all nodes at each depth level before moving to the next level.}
+    \label{fig:bfs-schema}
+\end{figure}
+
+The algorithm develops a search mechanism that, for example, in the 8-puzzle problem, would result in the search tree shown in Figure~\ref{fig:bfs-tree}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/bfs_tree.png}
+    \caption{Breadth-first search tree for the 8-puzzle problem. The tree is expanded level by level, showing all possible states at each depth.}
+    \label{fig:bfs-tree}
+\end{figure}
+
+\subsection{Algorithm Implementation}
+\label{subsec:bfs-implementation}
+
+The breadth-first search algorithm can be derived from the general search algorithm previously presented, with the following modifications:
+
+\begin{itemize}
+    \item \textbf{Adding successors}: New successors are added to the \textit{end} of the open list.
+    
+    \item \textbf{Queue behavior}: The open list functions as a queue (inserting at the end and retrieving from the beginning), which ensures that the oldest nodes (i.e., those at the shallowest depth) are always expanded first.
+    
+    \item \textbf{Visited nodes control}: Additionally, we control nodes that have been visited previously to avoid revisiting states.
+\end{itemize}
+
+\subsection{Properties}
+\label{subsec:bfs-properties}
+
+This algorithm is \textbf{complete} and \textbf{optimal} (finds the shortest path when all actions have the same cost), but it presents very poor time and space complexity, as it depends proportionally on the depth level $d$ of the solution and, therefore, on the number of expanded nodes or branching factor $b$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/bfs_complexity.png}
+    \caption{Time complexity analysis for breadth-first search in worst case, average case, and best case scenarios. The complexity is $O(b^d)$ where $b$ is the branching factor and $d$ is the depth of the solution.}
+    \label{fig:bfs-complexity}
+\end{figure}
+
+As shown in Figure~\ref{fig:bfs-complexity}, the time complexity is $O(b^d)$ in all cases:
+\begin{itemize}
+    \item \textbf{Worst case}: Explores all nodes up to depth $d$: $1 + b + \ldots + b^{d-1} + b^d \in O(b^d)$
+    \item \textbf{Average case}: Explores approximately half of the nodes at depth $d$: $1 + b + \ldots + b^{d-1} + b^d/2 \in O(b^d)$
+    \item \textbf{Best case}: Finds the goal as the first node at depth $d$: $1 + b + \ldots + b^{d-1} + 1 \in O(b^d)$
+\end{itemize}
+
+The space complexity is also $O(b^d)$ because the algorithm must store all nodes at the deepest level in the open list.
+
+\subsection{Example}
+\label{subsec:bfs-example}
+
+Let us illustrate BFS with a concrete example. Consider the weighted graph shown in Figure~\ref{fig:search-example}, where we want to find a path from the initial state $S$ to one of the goal states ($G1$ or $G2$).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/search_example.png}
+    \caption{Example search problem: finding a path from initial state $S$ to goal states $G1$ or $G2$. Edge weights represent the cost of transitions. \textbf{Note:} In this BFS example, all edge costs are treated as 1 (uniform cost), so the algorithm finds the shortest path in terms of number of steps, not total cost.}
+    \label{fig:search-example}
+\end{figure}
+
+Table~\ref{tab:bfs-expansion} shows the step-by-step execution of BFS on this problem. The algorithm expands nodes level by level, and we can see how repeated states are avoided.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{3cm}|p{4cm}|>{\raggedright\arraybackslash}p{7.5cm}|}
+        \hline
+        \textbf{Expanded} & \textbf{Generates} & \textbf{Open} \\
+        \hline
+        $S$ & $B, C$ & $B (SB), C (SC)$ \\
+        \hline
+        $B (SB)$ & $A, E$ & $C (SC), A (SBA), E (SBE)$ \\
+        \hline
+        $C (SC)$ & $D, G1, \cancel{B}$ & $A (SBA), E (SBE), D (SCD), G1 (SCG1)$ \\
+        \hline
+        $A (SBA)$ & $\cancel{C}$ & $E (SBE), D (SCD), G1 (SCG1)$ \\
+        \hline
+        $E (SBE)$ & $F, \cancel{D}$ & $D (SCD), G1 (SCG1), F (SBEF)$ \\
+        \hline
+        $D (SCD)$ & $G2, \cancel{F}$ & $G1 (SCG1), F (SBEF), G2 (SCDG2)$ \\
+        \hline
+        $G1 (SCG1)$ & \textbf{FIN} & --- \\
+        \hline
+    \end{tabular}
+    \caption{BFS expansion process for the example problem. The path notation (e.g., $SB$) indicates the path from $S$ to the node. Nodes with strikethrough ($\cancel{X}$) represent states that would be generated but are skipped because they have already been visited or are in the open list, preventing cycles and redundant exploration. \textbf{Note:} Generated nodes are listed in alphabetical order for convention. All edge costs are treated as 1 in this BFS example.}
+    \label{tab:bfs-expansion}
+\end{table}
+
+\textbf{Solution summary:}
+\begin{itemize}
+    \item \textbf{Solution:} $SC, CG1$
+    \item \textbf{Length:} 2
+    \item \textbf{Expanded:} 6 nodes
+    \item \textbf{Generated:} 8 nodes (excluding repeated states)
+    \item \textbf{Iterations:} 7
+\end{itemize}
+
+In this example, BFS finds the goal $G1$ through the path $S \rightarrow C \rightarrow G1$ (2 steps). Notice how the algorithm systematically explores all nodes at depth 1 ($B, C$) before moving to depth 2 ($A, E, D, G1$), and how it avoids generating states that have already been visited.

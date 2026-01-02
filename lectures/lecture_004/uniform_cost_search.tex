@@ -1,0 +1,103 @@
+\section{Uniform Cost Search}
+\label{sec:uniform-cost-search}
+
+In the previous cases of breadth-first and depth-first search, we assumed that the cost of applying any action (and therefore, the cost of choosing a branch) was always equal to 1, so the total cost of a path was the number of levels at which a particular node was located. But what happens when the cost of transitioning from one node to another is not equal for all actions in the environment?
+
+To solve this type of scenario where the cost is not equal for all actions (but is positive in all cases), we have the \textbf{Uniform Cost Search} (UCS) algorithm.
+
+\subsection{Algorithm Overview}
+\label{subsec:ucs-overview}
+
+Using the same general search algorithm, we apply the idea of directing the search by the cost of the operators. We assume there exists a utility function $f(n) = g(n)$ that allows us to calculate the real cost to reach node $n$ from the initial node. In each iteration of the algorithm, we will expand first the node with the lowest cost $f$.
+
+For simplicity, in the rest of the explanation of this algorithm, we will refer to the utility function interchangeably as $f$ or $g$.
+
+\subsection{Algorithm Modifications}
+\label{subsec:ucs-modifications}
+
+The modifications made to the general search algorithm are:
+
+\begin{itemize}
+    \item \textbf{Priority-based storage}: We store each node by priority based on its $g$ value. Therefore, the insertion of new nodes in the open list will be ordered in ascending order according to their $g$ value.
+    
+    \item \textbf{Priority queue}: The above makes the open list a priority queue ordered by the $g$ value.
+    
+    \item \textbf{Duplicate prevention}: We only add a node to the open list if it is not already in it.
+    
+    \item \textbf{Cost update}: If a node is found in the open list, we replace it if and only if the new cost $f$ is lower.
+\end{itemize}
+
+\subsection{Properties}
+\label{subsec:ucs-properties}
+
+This algorithm is \textbf{complete} and \textbf{optimal} when all costs have positive integer values. Therefore, the sequence of $g$ values is unbounded, and we always expand according to the insertion order based on this same function.
+
+UCS has the following characteristics:
+\begin{itemize}
+    \item \textbf{Completeness}: Complete when all edge costs are positive. If costs can be zero, completeness is guaranteed only if we ensure no infinite paths with zero cost exist.
+    
+    \item \textbf{Optimality}: Optimal—always finds the path with the lowest total cost from the initial state to the goal, as it expands nodes in order of increasing path cost.
+    
+    \item \textbf{Time complexity}: $O(b^{1+\lfloor C^*/\epsilon \rfloor})$, where $C^*$ is the cost of the optimal solution and $\epsilon$ is the minimum edge cost. In practice, this can be exponential.
+    
+    \item \textbf{Space complexity}: $O(b^{1+\lfloor C^*/\epsilon \rfloor})$—same as time complexity, as all nodes with cost less than the optimal solution cost may be stored.
+\end{itemize}
+
+UCS can be seen as a generalization of BFS: when all edge costs are equal to 1, UCS behaves exactly like BFS.
+
+\subsection{Example}
+\label{subsec:ucs-example}
+
+Let us illustrate UCS with the same example graph. Consider the weighted graph shown in Figure~\ref{fig:ucs-search-example}, where we want to find the lowest-cost path from the initial state $S$ to one of the goal states ($G1$ or $G2$). Unlike BFS and DFS, UCS considers the actual edge costs.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/search_example.png}
+    \caption{Example search problem: finding the lowest-cost path from initial state $S$ to goal states $G1$ or $G2$. Edge weights represent the actual costs of transitions. \textbf{Note:} In UCS, nodes are generated in alphabetical order, and this order is also used for tie-breaking in the open list when $g$ values are equal.}
+    \label{fig:ucs-search-example}
+\end{figure}
+
+Table~\ref{tab:ucs-expansion} shows the step-by-step execution of UCS on this problem. Notice how UCS expands nodes in order of increasing path cost $g$, and updates nodes in the open list when better paths are found.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2.5cm}|p{3.5cm}|>{\raggedright\arraybackslash}p{4.5cm}|>{\raggedright\arraybackslash}p{4.5cm}|}
+        \hline
+        \textbf{Expanded} & \textbf{Generates} & \textbf{Open} & \textbf{Closed} \\
+        \hline
+        $S$ & $B (g=1), C (g=4)$ & $B (g=1), C (g=4)$ & $S$ \\
+        \hline
+        $B (g=1)$ & $A (g=2), E (g=8)$ & $A (g=2), C (g=4), E (g=8)$ & $S, B (g=1)$ \\
+        \hline
+        $A (g=2)$ & $C (g=3)$ & $C (g=3), \cancel{C (g=4)}, E (g=8)$ & $S, B (g=1), A (g=2)$ \\
+        \hline
+        $C (g=3)$ & $D (g=8), G1 (g=24)$ ($B$ repeated in path to $C$) & $D (g=8), E (g=8), G1 (g=24)$ & $S, B (g=1), A (g=2), C (g=3)$ \\
+        \hline
+        $D (g=8)$ & $F (g=14), G2 (g=19)$ & $E (g=8), F (g=14), G2 (g=19), G1 (g=24)$ & $S, B (g=1), A (g=2), C (g=3), D (g=8)$ \\
+        \hline
+        $E (g=8)$ & $D (g=11), F (g=18)$ ($D$ and $F$ worse than existing paths) & $F (g=14), G2 (g=19), G1 (g=24)$ & $S, B (g=1), A (g=2), C (g=3), D (g=8), E (g=8)$ \\
+        \hline
+        $F (g=14)$ & (no successors) & $G2 (g=19), G1 (g=24)$ & $S, B (g=1), A (g=2), C (g=3), D (g=8), E (g=8), F (g=14)$ \\
+        \hline
+        $G2 (g=19)$ & \textbf{FIN} & --- & $S, B (g=1), A (g=2), C (g=3), D (g=8), E (g=8), F (g=14)$ \\
+        \hline
+    \end{tabular}
+    \caption{UCS expansion process for the example problem. The path notation shows the path from $S$ to the node, and $g$ values represent the total cost. Nodes with strikethrough ($\cancel{X}$) represent states that are replaced when a better path is found. The closed list tracks all expanded nodes. \textbf{Note:} Generated nodes are listed in alphabetical order, and this order is used for tie-breaking when $g$ values are equal.}
+    \label{tab:ucs-expansion}
+\end{table}
+
+\textbf{Solution summary:}
+\begin{itemize}
+    \item \textbf{Solution:} $SB(1), BA(1), AC(1), CD(5), DG2(11)$
+    \item \textbf{Cost:} $1 + 1 + 1 + 5 + 11 = 19$
+    \item \textbf{Expanded:} 7 nodes
+    \item \textbf{Generated:} 11 nodes (some were never inserted into the open list due to worse costs)
+\end{itemize}
+
+In this example, UCS finds the goal $G2$ through the path $S \rightarrow B \rightarrow A \rightarrow C \rightarrow D \rightarrow G2$ with total cost 19. Notice how UCS:
+\begin{itemize}
+    \item Expands nodes in order of increasing cost (first $B$ with $g=1$, then $A$ with $g=2$, then $C$ with $g=3$, etc.)
+    \item Updates node $C$ when a better path is found (replacing $C(g=4)$ with $C(g=3)$)
+    \item Ignores worse paths (e.g., $D(g=11)$ and $F(g=18)$ from $E$ are not added because better paths already exist)
+    \item Finds the optimal solution with the lowest total cost, unlike DFS which found a longer path
+\end{itemize}
